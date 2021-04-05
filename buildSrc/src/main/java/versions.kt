@@ -49,7 +49,7 @@ object versions {
 
         const val retrofit = "2.9.0"
         const val retrofitKotlinSerialization = "0.8.0"
-        const val okhttp3LoggingInterceptor = "4.8.1"
+        const val okHttp3 = "4.8.1"
     }
 
     object di {
