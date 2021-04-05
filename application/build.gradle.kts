@@ -10,7 +10,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    kotlin("android.extensions")
     id("org.jetbrains.kotlin.plugin.allopen") version versions.lang.kotlin
     id("jacoco")
 }
@@ -108,11 +107,6 @@ android {
             }
         }
     }
-}
-
-androidExtensions {
-    isExperimental = true
-    features = setOf("parcelize")
 }
 
 allOpen {

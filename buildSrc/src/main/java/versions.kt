@@ -7,6 +7,8 @@ object versions {
         const val agp = "4.1.3"
         const val minSdk = 23
         const val targetSdk = 30
+        const val versionCode = 1
+        const val versionName = "1.0.0"
     }
 
     object lang {
@@ -52,7 +54,7 @@ object versions {
 
     object di {
 
-        const val koin = "2.1.6"
+        const val koin = "2.2.2"
     }
 
     object ui {
