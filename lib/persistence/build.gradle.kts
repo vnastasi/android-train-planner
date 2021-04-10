@@ -34,6 +34,11 @@ android {
         shaders = false
     }
 
+    sourceSets {
+        sourceSets["test"].java.setSrcDirs(setOf(file("src/sharedTest/java"), file("src/test/java")))
+        sourceSets["androidTest"].java.setSrcDirs(setOf(file("src/sharedTest/java"), file("src/androidTest/java")))
+    }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
