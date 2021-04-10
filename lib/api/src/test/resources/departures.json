@@ -1,0 +1,43 @@
+[
+  {
+    "destination": "Utrecht Centraal",
+    "plannedDeparture": "2020-01-10T20:57:00.000Z",
+    "actualDeparture": "2020-01-10T20:59:00.000Z",
+    "plannedTrack": "9",
+    "unit": {
+      "number": "NS 3774",
+      "operator": "NS",
+      "category": {
+        "code": "IC",
+        "name": "Intercity"
+      },
+      "type": "TRAIN"
+    },
+    "intermediateStations": [
+      {
+        "code": "8400170",
+        "name": "Delft"
+      },
+      {
+        "code": "8400280",
+        "name": "Den Haag HS"
+      },
+      {
+        "code": "8400390",
+        "name": "Leiden C."
+      },
+      {
+        "code": "8400561",
+        "name": "Schiphol Airport"
+      }
+    ],
+    "status": "EXPECTED",
+    "cancelled": false,
+    "messages": [
+      {
+        "text": "Also stopping in Schiedam C., Laan v NOI, Bijlmer ArenA",
+        "type": "INFO"
+      }
+    ]
+  }
+]
