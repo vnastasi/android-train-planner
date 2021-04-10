@@ -8,6 +8,7 @@ import md.vnastasi.trainplanner.api.client.TimetableApiClient
 import md.vnastasi.trainplanner.api.util.WebServerExtension
 import md.vnastasi.trainplanner.api.util.assertThatBlocking
 import md.vnastasi.trainplanner.api.util.enqueueResponse
+import md.vnastasi.trainplanner.api.util.toOffsetDateTime
 import md.vnastasi.trainplanner.domain.board.*
 import md.vnastasi.trainplanner.domain.station.Station
 import md.vnastasi.trainplanner.exception.ApplicationException
@@ -170,8 +171,8 @@ internal class GetDeparturesTest : KoinTest {
 
         val expectedDeparture = Departure(
                 destination = "Utrecht Centraal",
-                plannedDeparture = OffsetDateTime.parse("2020-01-10T20:57Z", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mmX")),
-                actualDeparture = OffsetDateTime.parse("2020-01-10T20:59Z", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mmX")),
+                plannedDeparture = "2020-01-10T20:57Z".toOffsetDateTime(),
+                actualDeparture = "2020-01-10T20:59Z".toOffsetDateTime(),
                 plannedTrack = "9",
                 unit = TransportationUnit(number = "NS 3774", operator = "NS", category = Category(code = "IC", name = "Intercity"), type = TransportationType.TRAIN),
                 intermediateStations = listOf(
