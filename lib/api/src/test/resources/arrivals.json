@@ -1,0 +1,25 @@
+[
+  {
+    "origin": "Eindhoven Centraal",
+    "plannedArrival": "2020-01-18T20:46:00.000Z",
+    "actualArrival": "2020-01-18T20:46:00.000Z",
+    "plannedTrack": "9",
+    "actualTrack": "11",
+    "unit": {
+      "number": "NS 1174",
+      "operator": "NS",
+      "category": {
+        "code": "IC",
+        "name": "Intercity"
+      },
+      "type": "TRAIN"
+    },
+    "cancelled": false,
+    "messages": [
+      {
+        "text": "Arrival platform changed",
+        "type": "INFO"
+      }
+    ]
+  }
+]

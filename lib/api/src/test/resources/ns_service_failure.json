@@ -1,0 +1,9 @@
+{
+  "timestamp": "2020-01-08T21:41:44.309+0000",
+  "path": "/stations",
+  "status": 500,
+  "error": "Internal Server Error",
+  "message": "NS service failure",
+  "requestId": "f08f9bac",
+  "reason": "NS_SERVICE_FAILURE"
+}

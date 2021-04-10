@@ -1,0 +1,9 @@
+{
+  "timestamp": "2020-01-10T21:46:55.955Z",
+  "path": "/departures",
+  "status": 500,
+  "error": "Internal Server Error",
+  "message": "The station could not be found 🙁",
+  "requestId": "044f3344",
+  "reason": "NO_DEPARTURES_FOR_STATION"
+}
