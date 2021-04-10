@@ -54,7 +54,9 @@ tasks.register("codeCoverageUnitTests", JacocoReport::class) {
 
     sourceDirectories.setFrom(modules { it.projectDir.resolve("src/main/java") })
     classDirectories.setFrom(modules { it.buildDir.resolve("tmp/kotlin-classes/debug") }.asFileTree.matching {
-        excludes += setOf()
+        excludes += setOf(
+                "**/domain/**" // Do not include domain data classes
+        )
     })
     executionData.setFrom(modules { it.buildDir.resolve("jacoco") }.asFileTree.matching {
         includes += "*.exec"

@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("plugin.serialization") version versions.lang.kotlin
+    id("jacoco")
 }
 
 android {
