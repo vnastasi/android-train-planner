@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 import md.vnastasi.trainplanner.api.client.RawStationsApiClient
 import md.vnastasi.trainplanner.api.client.StationsApiClient
+import md.vnastasi.trainplanner.api.domain.error.ApiErrorReasonWrapper
 import md.vnastasi.trainplanner.api.exception.ApiFailureReason
-import md.vnastasi.trainplanner.domain.error.ApiErrorReason
 import md.vnastasi.trainplanner.domain.station.DistanceAwareStation
 import md.vnastasi.trainplanner.domain.station.Station
 
@@ -37,10 +37,10 @@ internal class StationsApiClientImpl(
         emit(stations)
     }
 
-    private fun ApiErrorReason.toApiFailureReason(): ApiFailureReason = when (this) {
-        ApiErrorReason.UNKNOWN_FAILURE -> ApiFailureReason.Unknown
-        ApiErrorReason.UNPARSABLE_RESPONSE -> ApiFailureReason.UnparsableResponse
-        ApiErrorReason.NS_SERVICE_FAILURE -> ApiFailureReason.NsFailure
+    private fun ApiErrorReasonWrapper.toApiFailureReason(): ApiFailureReason = when (this) {
+        ApiErrorReasonWrapper.UNKNOWN_FAILURE -> ApiFailureReason.Unknown
+        ApiErrorReasonWrapper.UNPARSABLE_RESPONSE -> ApiFailureReason.UnparsableResponse
+        ApiErrorReasonWrapper.NS_SERVICE_FAILURE -> ApiFailureReason.NsServerError
         else -> ApiFailureReason.Unknown
     }
 }

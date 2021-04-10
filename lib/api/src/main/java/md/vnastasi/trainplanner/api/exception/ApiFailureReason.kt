@@ -13,13 +13,15 @@ sealed class ApiFailureReason(
 
     object UnparsableResponse : ApiFailureReason("UNPARSABLE_API_RESPONSE", "Failed to parse API response")
 
-    object NsFailure : ApiFailureReason("NS_SERVER_ERROR", "Failed to connect to NS services")
+    object NsServerError : ApiFailureReason("NS_SERVER_ERROR", "Failed to connect to NS services")
 
     class UnknownStation(stationCode: String): ApiFailureReason("UNKNOWN_STATION", "Unknown station with code <$stationCode>")
 
     class NoArrivals(stationCode: String): ApiFailureReason("NO_ARRIVALS_AVAILABLE", "Arrival timetable unavailable for station with code <$stationCode>")
 
     class NoDepartures(stationCode: String): ApiFailureReason("NO_DEPARTURES_AVAILABLE", "Departure timetable unavailable for station with code <$stationCode>")
+
+    class ServerError(httpStatus: Int): ApiFailureReason("SERVER_ERROR", "API call returned HTTP $httpStatus")
 
     object Unknown : ApiFailureReason("UNKNOWN_SERVER_ERROR", "Something went wrong while connecting to the server")
 }
