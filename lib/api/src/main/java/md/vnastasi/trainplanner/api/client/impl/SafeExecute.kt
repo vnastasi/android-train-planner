@@ -17,7 +17,7 @@ internal suspend fun <T, R> safeExecute(
         onSuccessMap: (T) -> R,
         onErrorMap: (ApiErrorReasonWrapper) -> ApiFailureReason
 ): R {
-    val response = safeExecuteRequest(call)
+    val response = safeExecuteCall(call)
     if (!response.isSuccessful) {
         val apiError = serializer.parseApiError(response)
         throw ApplicationException(onErrorMap.invoke(apiError.reason))
@@ -28,7 +28,7 @@ internal suspend fun <T, R> safeExecute(
     return onSuccessMap.invoke(body)
 }
 
-private suspend fun <T> safeExecuteRequest(block: suspend () -> Response<T>) =
+private suspend fun <T> safeExecuteCall(block: suspend () -> Response<T>) =
         try {
             block.invoke()
         } catch (e: MissingNetworkConnectionException) {
@@ -38,17 +38,16 @@ private suspend fun <T> safeExecuteRequest(block: suspend () -> Response<T>) =
         }
 
 private fun Json.parseApiError(response: Response<*>): ApiErrorWrapper {
-    val errorBody = response.errorBody() ?: throw ApplicationException(ApiFailureReason.ServerError(response.code()))
+    val errorBody = response.errorBody() ?: response.raiseServerError()
 
     return try {
-        val bodyString = errorBody.string()
-        if (bodyString.isBlank()) {
-            throw ApplicationException(ApiFailureReason.ServerError(response.code()))
-        }
-        this.decodeFromString(bodyString) ?: throw ApplicationException(ApiFailureReason.ServerError(response.code()))
+        val bodyString = errorBody.string().takeUnless { it.isBlank() } ?: response.raiseServerError()
+        this.decodeFromString(bodyString) ?: response.raiseServerError()
     } catch (e: SerializationException) {
         throw ApplicationException(ApiFailureReason.UnparsableResponse, e)
     } catch (e: IOException) {
         throw ApplicationException(ApiFailureReason.Unknown, e)
     }
 }
+
+private fun Response<*>.raiseServerError(): Nothing = throw ApplicationException(ApiFailureReason.ServerError(code()))
