@@ -12,6 +12,7 @@ android {
         targetSdkVersion(versions.project.targetSdk)
         versionCode = versions.project.versionCode
         versionName = versions.project.versionName
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -74,9 +75,12 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.lang.coroutines}")
     implementation("org.koin:koin-core:${versions.di.koin}")
     implementation("androidx.room:room-runtime:${versions.androidx.room}")
     implementation("androidx.room:room-ktx:${versions.androidx.room}")
+    implementation("androidx.lifecycle:lifecycle-livedata:${versions.androidx.lifecycle}")
+    implementation("androidx.paging:paging-runtime:2.1.2")
 
     kapt("androidx.room:room-compiler:${versions.androidx.room}")
 
@@ -91,6 +95,15 @@ dependencies {
     }
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${versions.testing.junitJupiter}")
+
+    androidTestImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
+    androidTestImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test:core:${versions.androidx.test}")
+    androidTestImplementation("androidx.test:runner:${versions.androidx.test}")
+    androidTestImplementation("androidx.test:rules:${versions.androidx.test}")
+    androidTestImplementation("androidx.test.ext:junit:${versions.androidx.testJunit}")
+    androidTestImplementation("androidx.room:room-testing:${versions.androidx.room}")
+    androidTestImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
 }

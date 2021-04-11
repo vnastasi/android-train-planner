@@ -9,7 +9,7 @@ import md.vnastasi.trainplanner.persistence.domain.convert.StationTypeConverter
 import md.vnastasi.trainplanner.persistence.domain.convert.StringListConverter
 import md.vnastasi.trainplanner.persistence.domain.station.StationEntity
 
-@Database(entities = [StationEntity::class], version = 1, exportSchema = true)
+@Database(entities = [StationEntity::class], version = 1, exportSchema = false)
 @TypeConverters(value = [StationTypeConverter::class, StringListConverter::class, InstantConverter::class])
 internal abstract class ApplicationDatabase : RoomDatabase() {
 

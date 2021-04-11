@@ -1,4 +1,4 @@
-package md.vnastasi.trainplanner
+package md.vnastasi.trainplanner.persistence.data
 
 import md.vnastasi.trainplanner.domain.station.Coordinates
 import md.vnastasi.trainplanner.domain.station.NameHolder

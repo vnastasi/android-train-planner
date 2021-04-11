@@ -10,8 +10,8 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verifyBlocking
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.flow.toList
-import md.vnastasi.trainplanner.createStation
 import md.vnastasi.trainplanner.persistence.dao.StationDao
+import md.vnastasi.trainplanner.persistence.data.createStation
 import md.vnastasi.trainplanner.persistence.util.assertThatBlocking
 import md.vnastasi.trainplanner.persistence.util.doReturnFlow
 import org.junit.jupiter.api.Test
