@@ -10,5 +10,5 @@ internal object StringListConverter {
 
     @JvmStatic
     @TypeConverter
-    fun convertStringToList(value: String?): List<String> = value?.split(";")?.toList() ?: emptyList()
+    fun convertStringToList(value: String?): List<String> = value?.takeUnless { it.isEmpty() }?.split(";")?.toList() ?: emptyList()
 }
