@@ -1,4 +1,4 @@
-package md.vnastasi.trainplanner.api.util
+package md.vnastasi.trainplanner.ext
 
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter

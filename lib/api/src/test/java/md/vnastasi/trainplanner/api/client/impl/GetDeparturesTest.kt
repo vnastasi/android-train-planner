@@ -7,9 +7,9 @@ import kotlinx.coroutines.runBlocking
 import md.vnastasi.trainplanner.api.client.TimetableApiClient
 import md.vnastasi.trainplanner.api.util.WebServerExtension
 import md.vnastasi.trainplanner.api.util.enqueueResponse
-import md.vnastasi.trainplanner.api.util.toOffsetDateTime
 import md.vnastasi.trainplanner.domain.board.*
 import md.vnastasi.trainplanner.exception.ApplicationException
+import md.vnastasi.trainplanner.ext.toOffsetDateTime
 import md.vnastasi.trainplanner.test.core.assertThatFlow
 import md.vnastasi.trainplanner.test.core.hasData
 import okhttp3.mockwebserver.MockWebServer

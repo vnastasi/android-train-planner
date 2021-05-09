@@ -67,6 +67,7 @@ dependencies {
     implementation(project(":core:di"))
     implementation(project(":core:domain"))
     implementation(project(":core:exception"))
+    implementation(project(":core:utils"))
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
