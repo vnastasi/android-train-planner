@@ -9,8 +9,8 @@ import assertk.assertions.isEmpty
 import kotlinx.coroutines.runBlocking
 import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
 import md.vnastasi.trainplanner.persistence.util.DatabaseRule
-import md.vnastasi.trainplanner.persistence.util.TestStations
 import md.vnastasi.trainplanner.persistence.util.expectOneElement
+import md.vnastasi.trainplanner.domain.SampleStations
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,8 +24,8 @@ internal class FindRecentTest {
 
     @Test
     fun testNoLastUsedStations() = runBlocking {
-        TestStations.DEN_BOSCH.copy(lastUsed = null).toStationEntity().also { databaseRule.stationDao.insert(it) }
-        TestStations.AMSTERDAM_CENTRAL.copy(lastUsed = null).toStationEntity().also { databaseRule.stationDao.insert(it) }
+        SampleStations.DEN_BOSCH.copy(lastUsed = null).toStationEntity().also { databaseRule.stationDao.insert(it) }
+        SampleStations.AMSTERDAM_CENTRAL.copy(lastUsed = null).toStationEntity().also { databaseRule.stationDao.insert(it) }
 
         databaseRule.stationDao.findRecent(10).expectOneElement { list ->
             assertThat(list).isEmpty()
@@ -34,8 +34,8 @@ internal class FindRecentTest {
 
     @Test
     fun testAllLastUsedStationsMarkedAsFavourites() = runBlocking {
-        TestStations.DEN_BOSCH.copy(lastUsed = Instant.now(), isFavourite = true).toStationEntity().also { databaseRule.stationDao.insert(it) }
-        TestStations.AMSTERDAM_CENTRAL.copy(lastUsed = Instant.now(), isFavourite = true).toStationEntity().also { databaseRule.stationDao.insert(it) }
+        SampleStations.DEN_BOSCH.copy(lastUsed = Instant.now(), isFavourite = true).toStationEntity().also { databaseRule.stationDao.insert(it) }
+        SampleStations.AMSTERDAM_CENTRAL.copy(lastUsed = Instant.now(), isFavourite = true).toStationEntity().also { databaseRule.stationDao.insert(it) }
 
         databaseRule.stationDao.findRecent(10).expectOneElement { list ->
             assertThat(list).isEmpty()
@@ -44,8 +44,8 @@ internal class FindRecentTest {
 
     @Test
     fun testListOrderAndLimit() = runBlocking {
-        val station1 = TestStations.DEN_BOSCH.copy(lastUsed = Instant.now(), isFavourite = false).toStationEntity()
-        val station2 = TestStations.AMSTERDAM_CENTRAL.copy(lastUsed = Instant.now(), isFavourite = false).toStationEntity()
+        val station1 = SampleStations.DEN_BOSCH.copy(lastUsed = Instant.now(), isFavourite = false).toStationEntity()
+        val station2 = SampleStations.AMSTERDAM_CENTRAL.copy(lastUsed = Instant.now().plusMillis(1), isFavourite = false).toStationEntity()
 
         databaseRule.stationDao.insert(station1)
         databaseRule.stationDao.insert(station2)

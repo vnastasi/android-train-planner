@@ -9,8 +9,8 @@ import assertk.assertions.isEmpty
 import kotlinx.coroutines.runBlocking
 import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
 import md.vnastasi.trainplanner.persistence.util.DatabaseRule
-import md.vnastasi.trainplanner.persistence.util.TestStations
 import md.vnastasi.trainplanner.persistence.util.expectOneElement
+import md.vnastasi.trainplanner.domain.SampleStations
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,8 +23,8 @@ internal class FindFavouritesTest {
 
     @Test
     fun testEmptyList() = runBlocking {
-        TestStations.DEN_BOSCH.copy(isFavourite = false).toStationEntity().also { databaseRule.stationDao.insert(it) }
-        TestStations.ARNHEM_CENTRAL.copy(isFavourite = false).toStationEntity().also { databaseRule.stationDao.insert(it) }
+        SampleStations.DEN_BOSCH.copy(isFavourite = false).toStationEntity().also { databaseRule.stationDao.insert(it) }
+        SampleStations.ARNHEM_CENTRAL.copy(isFavourite = false).toStationEntity().also { databaseRule.stationDao.insert(it) }
 
         databaseRule.stationDao.findFavourites(10).expectOneElement { list ->
             assertThat(list).isEmpty()
@@ -33,8 +33,8 @@ internal class FindFavouritesTest {
 
     @Test
     fun testListLimit() = runBlocking {
-        val station1 = TestStations.DEN_BOSCH.copy(isFavourite = true).toStationEntity()
-        val station2 = TestStations.ARNHEM_CENTRAL.copy(isFavourite = true).toStationEntity()
+        val station1 = SampleStations.DEN_BOSCH.copy(isFavourite = true).toStationEntity()
+        val station2 = SampleStations.ARNHEM_CENTRAL.copy(isFavourite = true).toStationEntity()
 
         databaseRule.stationDao.insert(station1)
         databaseRule.stationDao.insert(station2)

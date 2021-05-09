@@ -3,12 +3,8 @@ package md.vnastasi.trainplanner.persistence.util
 import android.app.Application
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import kotlinx.coroutines.runBlocking
-import md.vnastasi.trainplanner.domain.station.StationType
 import md.vnastasi.trainplanner.persistence.ApplicationDatabase
-import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
 import md.vnastasi.trainplanner.persistence.dao.StationDao
-import md.vnastasi.trainplanner.persistence.data.createStation
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 

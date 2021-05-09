@@ -11,9 +11,10 @@ import com.nhaarman.mockitokotlin2.verifyBlocking
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.flow.toList
 import md.vnastasi.trainplanner.persistence.dao.StationDao
-import md.vnastasi.trainplanner.persistence.data.createStation
 import md.vnastasi.trainplanner.persistence.util.assertThatBlocking
 import md.vnastasi.trainplanner.persistence.util.doReturnFlow
+import md.vnastasi.trainplanner.domain.SampleStations
+import md.vnastasi.trainplanner.domain.createStation
 import org.junit.jupiter.api.Test
 
 internal class StationDbClientImplTest {
@@ -39,6 +40,7 @@ internal class StationDbClientImplTest {
 
     @Test
     internal fun testFindFavourites() {
+        SampleStations
         val limit = 10
         val station = createStation()
 

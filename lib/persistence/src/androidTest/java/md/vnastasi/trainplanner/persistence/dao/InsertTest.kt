@@ -7,9 +7,8 @@ import assertk.assertions.*
 import kotlinx.coroutines.runBlocking
 import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
 import md.vnastasi.trainplanner.persistence.util.DatabaseRule
-import md.vnastasi.trainplanner.persistence.util.TestStations
 import md.vnastasi.trainplanner.persistence.util.expectOneElement
-import org.junit.Before
+import md.vnastasi.trainplanner.domain.SampleStations
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,8 +21,8 @@ internal class InsertTest {
 
     @Test
     fun testInsertConflict() = runBlocking {
-        val oldStation = TestStations.AMSTERDAM_CENTRAL.toStationEntity().also { databaseRule.stationDao.insert(it) }
-        val newStation = TestStations.AMSTERDAM_CENTRAL.copy(countryCode = "DE").toStationEntity().also { databaseRule.stationDao.insert(it) }
+        val oldStation = SampleStations.AMSTERDAM_CENTRAL.toStationEntity().also { databaseRule.stationDao.insert(it) }
+        val newStation = SampleStations.AMSTERDAM_CENTRAL.copy(countryCode = "DE").toStationEntity().also { databaseRule.stationDao.insert(it) }
 
         assertThat(oldStation).isNotEqualTo(newStation)
 
@@ -37,8 +36,8 @@ internal class InsertTest {
 
     @Test
     fun testInsertWithoutConflict() = runBlocking {
-        val oldStation = TestStations.AMSTERDAM_CENTRAL.toStationEntity().also { databaseRule.stationDao.insert(it) }
-        val newStation = TestStations.AMSTERDAM_CENTRAL.copy(countryCode = "DE", code = "new").toStationEntity().also { databaseRule.stationDao.insert(it) }
+        val oldStation = SampleStations.AMSTERDAM_CENTRAL.toStationEntity().also { databaseRule.stationDao.insert(it) }
+        val newStation = SampleStations.AMSTERDAM_CENTRAL.copy(countryCode = "DE", code = "new").toStationEntity().also { databaseRule.stationDao.insert(it) }
 
         assertThat(oldStation).isNotEqualTo(newStation)
 

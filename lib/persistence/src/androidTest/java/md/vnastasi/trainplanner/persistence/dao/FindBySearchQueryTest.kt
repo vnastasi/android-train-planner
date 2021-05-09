@@ -8,11 +8,11 @@ import assertk.assertions.hasSize
 import kotlinx.coroutines.runBlocking
 import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
 import md.vnastasi.trainplanner.persistence.util.DatabaseRule
-import md.vnastasi.trainplanner.persistence.util.TestStations.AMSTERDAM_CENTRAL
-import md.vnastasi.trainplanner.persistence.util.TestStations.ARNHEM_CENTRAL
-import md.vnastasi.trainplanner.persistence.util.TestStations.DEN_BOSCH
-import md.vnastasi.trainplanner.persistence.util.TestStations.DE_VINK
 import md.vnastasi.trainplanner.persistence.util.expectOneElement
+import md.vnastasi.trainplanner.domain.SampleStations.AMSTERDAM_CENTRAL
+import md.vnastasi.trainplanner.domain.SampleStations.ARNHEM_CENTRAL
+import md.vnastasi.trainplanner.domain.SampleStations.DEN_BOSCH
+import md.vnastasi.trainplanner.domain.SampleStations.DE_VINK
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
