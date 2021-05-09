@@ -67,6 +67,7 @@ dependencies {
     implementation(project(":core:di"))
     implementation(project(":core:domain"))
     implementation(project(":core:exception"))
+    implementation(project(":core:utils"))
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
@@ -76,6 +77,7 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${versions.network.retrofitKotlinSerialization}")
     implementation("org.koin:koin-core:${versions.di.koin}")
 
+    testImplementation(project(":test:core-test"))
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")

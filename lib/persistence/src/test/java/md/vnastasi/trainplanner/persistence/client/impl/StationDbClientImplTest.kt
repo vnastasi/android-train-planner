@@ -1,19 +1,19 @@
 package md.vnastasi.trainplanner.persistence.client.impl
 
-import assertk.all
-import assertk.assertions.contains
-import assertk.assertions.hasSize
+import assertk.assertThat
+import assertk.assertions.containsExactly
 import assertk.assertions.isSuccess
-import assertk.assertions.prop
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verifyBlocking
 import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.runBlocking
+import md.vnastasi.trainplanner.domain.SampleStations
+import md.vnastasi.trainplanner.domain.createStation
 import md.vnastasi.trainplanner.persistence.dao.StationDao
-import md.vnastasi.trainplanner.persistence.data.createStation
-import md.vnastasi.trainplanner.persistence.util.assertThatBlocking
-import md.vnastasi.trainplanner.persistence.util.doReturnFlow
+import md.vnastasi.trainplanner.test.core.assertThatFlow
+import md.vnastasi.trainplanner.test.core.doReturnFlowOf
+import md.vnastasi.trainplanner.test.core.hasData
 import org.junit.jupiter.api.Test
 
 internal class StationDbClientImplTest {
@@ -23,71 +23,63 @@ internal class StationDbClientImplTest {
     private val stationDbClient = StationDbClientImpl(mockStationDao)
 
     @Test
-    internal fun testFindBySearchQuery() {
+    internal fun testFindBySearchQuery() = runBlocking {
         val query = "haag"
         val station = createStation()
 
-        whenever(mockStationDao.findBySearchQuery(query)).doReturnFlow(listOf(station.toStationEntity()))
+        whenever(mockStationDao.findBySearchQuery(query)).doReturnFlowOf(listOf(station.toStationEntity()))
 
-        assertThatBlocking { stationDbClient.findBySearchQuery(query).toList(mutableListOf()) }
-                .isSuccess()
-                .all {
-                    hasSize(1)
-                    prop("element") { it[0] }.contains(station)
-                }
+        assertThatFlow { stationDbClient.findBySearchQuery(query) }
+            .hasData()
+            .containsExactly(station)
     }
 
     @Test
-    internal fun testFindFavourites() {
+    internal fun testFindFavourites() = runBlocking {
+        SampleStations
         val limit = 10
         val station = createStation()
 
-        whenever(mockStationDao.findFavourites(limit)).doReturnFlow(listOf(station.toStationEntity()))
+        whenever(mockStationDao.findFavourites(limit)).doReturnFlowOf(listOf(station.toStationEntity()))
 
-        assertThatBlocking { stationDbClient.findFavourites(limit).toList(mutableListOf()) }
-                .isSuccess()
-                .all {
-                    hasSize(1)
-                    prop("element") { it[0] }.contains(station)
-                }
+        assertThatFlow { stationDbClient.findFavourites(limit) }
+            .hasData()
+            .containsExactly(station)
     }
 
     @Test
-    internal fun testFindRecent() {
+    internal fun testFindRecent() = runBlocking {
         val limit = 10
         val station = createStation()
 
-        whenever(mockStationDao.findRecent(limit)).doReturnFlow(listOf(station.toStationEntity()))
+        whenever(mockStationDao.findRecent(limit)).doReturnFlowOf(listOf(station.toStationEntity()))
 
-        assertThatBlocking { stationDbClient.findRecent(limit).toList(mutableListOf()) }
-                .isSuccess()
-                .all {
-                    hasSize(1)
-                    prop("element") { it[0] }.contains(station)
-                }
+        assertThatFlow { stationDbClient.findRecent(limit) }
+            .hasData()
+            .containsExactly(station)
     }
 
     @Test
-    internal fun testInsert() {
+    internal fun testInsert() = runBlocking {
         val station = createStation()
 
-        assertThatBlocking { stationDbClient.insert(station) }.isSuccess()
+        assertThat { stationDbClient.insert(station) }.isSuccess()
 
         verifyBlocking(mockStationDao) { insert(eq(station.toStationEntity())) }
     }
 
     @Test
-    internal fun testUpdate() {
+    internal fun testUpdate() = runBlocking {
         val station = createStation()
 
-        assertThatBlocking { stationDbClient.update(station) }.isSuccess()
+        assertThat { stationDbClient.update(station) }.isSuccess()
 
         verifyBlocking(mockStationDao) { update(eq(station.toStationEntity())) }
     }
 
     @Test
-    internal fun testDeleteAll() {
-        assertThatBlocking { stationDbClient.deleteAll() }.isSuccess()
+    internal fun testDeleteAll() = runBlocking {
+        assertThat { stationDbClient.deleteAll() }.isSuccess()
 
         verifyBlocking(mockStationDao) { deleteAll() }
     }

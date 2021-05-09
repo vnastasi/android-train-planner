@@ -1,9 +1,8 @@
-package md.vnastasi.trainplanner.persistence.util
+package md.vnastasi.trainplanner.domain
 
 import md.vnastasi.trainplanner.domain.station.StationType
-import md.vnastasi.trainplanner.persistence.data.createStation
 
-internal object TestStations {
+object SampleStations {
 
     val AMSTERDAM_CENTRAL = createStation {
         code = "0002"

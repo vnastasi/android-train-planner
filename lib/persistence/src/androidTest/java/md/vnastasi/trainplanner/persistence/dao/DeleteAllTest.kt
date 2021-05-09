@@ -1,16 +1,17 @@
 package md.vnastasi.trainplanner.persistence.dao
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import assertk.assertThat
 import assertk.assertions.isEmpty
 import kotlinx.coroutines.runBlocking
+import md.vnastasi.trainplanner.domain.SampleStations
+import md.vnastasi.trainplanner.domain.SampleStations.AMSTERDAM_CENTRAL
+import md.vnastasi.trainplanner.domain.SampleStations.ARNHEM_CENTRAL
+import md.vnastasi.trainplanner.domain.SampleStations.DEN_BOSCH
+import md.vnastasi.trainplanner.domain.SampleStations.DE_VINK
 import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
 import md.vnastasi.trainplanner.persistence.util.DatabaseRule
-import md.vnastasi.trainplanner.persistence.util.TestStations.AMSTERDAM_CENTRAL
-import md.vnastasi.trainplanner.persistence.util.TestStations.ARNHEM_CENTRAL
-import md.vnastasi.trainplanner.persistence.util.TestStations.DEN_BOSCH
-import md.vnastasi.trainplanner.persistence.util.TestStations.DE_VINK
-import md.vnastasi.trainplanner.persistence.util.expectOneElement
+import md.vnastasi.trainplanner.test.core.assertThatFlow
+import md.vnastasi.trainplanner.test.core.hasData
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -29,10 +30,11 @@ internal class DeleteAllTest {
 
     @Test
     fun testDeleteAll() = runBlocking {
+        SampleStations
         databaseRule.stationDao.deleteAll()
 
-        databaseRule.stationDao.findBySearchQuery("").expectOneElement { list ->
-            assertThat(list).isEmpty()
-        }
+        assertThatFlow { databaseRule.stationDao.findBySearchQuery("") }
+            .hasData()
+            .isEmpty()
     }
 }
