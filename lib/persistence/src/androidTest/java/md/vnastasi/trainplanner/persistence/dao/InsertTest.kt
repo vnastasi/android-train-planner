@@ -1,14 +1,16 @@
 package md.vnastasi.trainplanner.persistence.dao
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import assertk.all
 import assertk.assertThat
-import assertk.assertions.*
+import assertk.assertions.containsExactly
+import assertk.assertions.containsExactlyInAnyOrder
+import assertk.assertions.isNotEqualTo
 import kotlinx.coroutines.runBlocking
+import md.vnastasi.trainplanner.domain.SampleStations
 import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
 import md.vnastasi.trainplanner.persistence.util.DatabaseRule
-import md.vnastasi.trainplanner.persistence.util.expectOneElement
-import md.vnastasi.trainplanner.domain.SampleStations
+import md.vnastasi.trainplanner.test.core.assertThatFlow
+import md.vnastasi.trainplanner.test.core.hasData
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,12 +28,9 @@ internal class InsertTest {
 
         assertThat(oldStation).isNotEqualTo(newStation)
 
-        databaseRule.stationDao.findBySearchQuery("amsterdam").expectOneElement { list ->
-            assertThat(list).all {
-                hasSize(1)
-                containsExactly(newStation)
-            }
-        }
+        assertThatFlow { databaseRule.stationDao.findBySearchQuery("amsterdam") }
+            .hasData()
+            .containsExactly(newStation)
     }
 
     @Test
@@ -41,11 +40,8 @@ internal class InsertTest {
 
         assertThat(oldStation).isNotEqualTo(newStation)
 
-        databaseRule.stationDao.findBySearchQuery("amsterdam").expectOneElement { list ->
-            assertThat(list).all {
-                hasSize(2)
-                containsAll(oldStation, newStation)
-            }
-        }
+        assertThatFlow { databaseRule.stationDao.findBySearchQuery("amsterdam") }
+            .hasData()
+            .containsExactlyInAnyOrder(oldStation, newStation)
     }
 }

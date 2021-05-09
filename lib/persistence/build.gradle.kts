@@ -35,11 +35,6 @@ android {
         shaders = false
     }
 
-    sourceSets {
-        sourceSets["test"].java.setSrcDirs(setOf(file("src/sharedTest/java"), file("src/test/java")))
-        sourceSets["androidTest"].java.setSrcDirs(setOf(file("src/sharedTest/java"), file("src/androidTest/java")))
-    }
-
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -85,6 +80,7 @@ dependencies {
     kapt("androidx.room:room-compiler:${versions.androidx.room}")
 
     testImplementation(project(":test:domain-test"))
+    testImplementation(project(":test:core-test"))
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
@@ -98,6 +94,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${versions.testing.junitJupiter}")
 
     androidTestImplementation(project(":test:domain-test"))
+    androidTestImplementation(project(":test:core-test"))
     androidTestImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
     androidTestImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:core:${versions.androidx.test}")

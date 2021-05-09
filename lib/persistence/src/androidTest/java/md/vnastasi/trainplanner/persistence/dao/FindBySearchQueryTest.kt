@@ -1,18 +1,17 @@
 package md.vnastasi.trainplanner.persistence.dao
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import assertk.assertThat
 import assertk.assertions.containsExactly
 import assertk.assertions.containsExactlyInAnyOrder
-import assertk.assertions.hasSize
 import kotlinx.coroutines.runBlocking
-import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
-import md.vnastasi.trainplanner.persistence.util.DatabaseRule
-import md.vnastasi.trainplanner.persistence.util.expectOneElement
 import md.vnastasi.trainplanner.domain.SampleStations.AMSTERDAM_CENTRAL
 import md.vnastasi.trainplanner.domain.SampleStations.ARNHEM_CENTRAL
 import md.vnastasi.trainplanner.domain.SampleStations.DEN_BOSCH
 import md.vnastasi.trainplanner.domain.SampleStations.DE_VINK
+import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
+import md.vnastasi.trainplanner.persistence.util.DatabaseRule
+import md.vnastasi.trainplanner.test.core.assertThatFlow
+import md.vnastasi.trainplanner.test.core.hasData
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,41 +30,36 @@ internal class FindBySearchQueryTest {
 
     @Test
     fun testEmptySearchQuery() = runBlocking {
-        databaseRule.stationDao.findBySearchQuery("").expectOneElement { list ->
-            assertThat(list).hasSize(4)
-            assertThat(list).containsExactlyInAnyOrder(AMSTERDAM_CENTRAL.toStationEntity(), DEN_BOSCH.toStationEntity(), DE_VINK.toStationEntity(), ARNHEM_CENTRAL.toStationEntity())
-        }
+        assertThatFlow { databaseRule.stationDao.findBySearchQuery("") }
+            .hasData()
+            .containsExactlyInAnyOrder(AMSTERDAM_CENTRAL.toStationEntity(), DEN_BOSCH.toStationEntity(), DE_VINK.toStationEntity(), ARNHEM_CENTRAL.toStationEntity())
     }
 
     @Test
     fun testSearchByLongName() = runBlocking {
-        databaseRule.stationDao.findBySearchQuery("AAL").expectOneElement { list ->
-            assertThat(list).hasSize(2)
-            assertThat(list).containsExactlyInAnyOrder(AMSTERDAM_CENTRAL.toStationEntity(), ARNHEM_CENTRAL.toStationEntity())
-        }
+        assertThatFlow { databaseRule.stationDao.findBySearchQuery("AAL") }
+            .hasData()
+            .containsExactlyInAnyOrder(AMSTERDAM_CENTRAL.toStationEntity(), ARNHEM_CENTRAL.toStationEntity())
     }
 
     @Test
     fun testSearchByMiddleName() = runBlocking {
-        databaseRule.stationDao.findBySearchQuery("c.").expectOneElement { list ->
-            assertThat(list).hasSize(2)
-            assertThat(list).containsExactlyInAnyOrder(AMSTERDAM_CENTRAL.toStationEntity(), ARNHEM_CENTRAL.toStationEntity())
-        }
+        assertThatFlow { databaseRule.stationDao.findBySearchQuery("c.") }
+            .hasData()
+            .containsExactlyInAnyOrder(AMSTERDAM_CENTRAL.toStationEntity(), ARNHEM_CENTRAL.toStationEntity())
     }
 
     @Test
     fun testSearchByShortName() = runBlocking {
-        databaseRule.stationDao.findBySearchQuery("den").expectOneElement { list ->
-            assertThat(list).hasSize(1)
-            assertThat(list).containsExactly(DEN_BOSCH.toStationEntity())
-        }
+        assertThatFlow { databaseRule.stationDao.findBySearchQuery("den") }
+            .hasData()
+            .containsExactly(DEN_BOSCH.toStationEntity())
     }
 
     @Test
     fun testSearchBySynonym() = runBlocking {
-        databaseRule.stationDao.findBySearchQuery("CS").expectOneElement { list ->
-            assertThat(list).hasSize(2)
-            assertThat(list).containsExactlyInAnyOrder(AMSTERDAM_CENTRAL.toStationEntity(), ARNHEM_CENTRAL.toStationEntity())
-        }
+        assertThatFlow { databaseRule.stationDao.findBySearchQuery("CS") }
+            .hasData()
+            .containsExactlyInAnyOrder(AMSTERDAM_CENTRAL.toStationEntity(), ARNHEM_CENTRAL.toStationEntity())
     }
 }

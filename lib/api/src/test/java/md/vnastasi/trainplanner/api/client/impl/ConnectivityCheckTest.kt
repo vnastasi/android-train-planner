@@ -4,12 +4,12 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.prop
-import kotlinx.coroutines.flow.toCollection
+import kotlinx.coroutines.runBlocking
 import md.vnastasi.trainplanner.api.client.StationsApiClient
 import md.vnastasi.trainplanner.api.util.WebServerExtension
-import md.vnastasi.trainplanner.api.util.assertThatBlocking
 import md.vnastasi.trainplanner.api.util.enqueueResponse
 import md.vnastasi.trainplanner.exception.ApplicationException
+import md.vnastasi.trainplanner.test.core.assertThatFlow
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -21,20 +21,22 @@ import java.net.HttpURLConnection
 internal class ConnectivityCheckTest : KoinTest {
 
     @Test
-    @DisplayName("""
+    @DisplayName(
+        """
         Given no connection
         When calling any endpoint
         Then expect exception to be raised with code 'MISSING_INTERNET_CONNECTION'
-    """)
-    internal fun testNoConnection(webServer: MockWebServer) {
+    """
+    )
+    internal fun testNoConnection(webServer: MockWebServer) = runBlocking {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_NOT_FOUND
         }
 
-        assertThatBlocking { get<StationsApiClient>().getStations().toCollection(mutableListOf()) }
-                .isFailure()
-                .isInstanceOf(ApplicationException::class)
-                .prop("code") { it.failureReason.code }.isEqualTo("MISSING_INTERNET_CONNECTION")
+        assertThatFlow { get<StationsApiClient>().getStations() }
+            .isFailure()
+            .isInstanceOf(ApplicationException::class)
+            .prop("code") { it.failureReason.code }.isEqualTo("MISSING_INTERNET_CONNECTION")
     }
 
     companion object {
