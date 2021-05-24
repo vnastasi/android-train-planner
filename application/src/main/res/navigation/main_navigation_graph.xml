@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="md.vnastasi.trainplanner.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_login_to_dashboard"
+            app:destination="@id/dashboard" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dashboard"
+        android:name="md.vnastasi.trainplanner.dashboard.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+
+        <action
+            android:id="@+id/action_dashboard_to_timetable"
+            app:destination="@id/timetable" />
+
+        <action
+            android:id="@+id/action_dashboard_to_station_search"
+            app:destination="@id/station_search" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/timetable"
+        android:name="md.vnastasi.trainplanner.timetable.TimetableFragment"
+        android:label="fragment_timetable"
+        tools:layout="@layout/fragment_timetable" />
+
+    <fragment
+        android:id="@+id/station_search"
+        android:name="md.vnastasi.trainplanner.station.StationSearchFragment"
+        android:label="fragment_station_search"
+        tools:layout="@layout/fragment_station_search" />
+
+</navigation>

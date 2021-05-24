@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_planner"
+        android:icon="@drawable/ic_planner"
+        android:title="@string/menu_item_planner" />
+
+    <item android:id="@+id/menu_map"
+        android:icon="@drawable/ic_map"
+        android:title="@string/menu_item_map" />
+
+    <item android:id="@+id/menu_disruptions"
+        android:icon="@drawable/ic_warning"
+        android:title="@string/enu_item_disruptions" />
+
+</menu>
