@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.TrainPlanner.Base" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.TrainPlanner.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Colors -->
         <item name="android:windowBackground">#e3f2fd</item>
         <item name="android:statusBarColor">?attr/colorPrimary</item>
@@ -14,10 +14,16 @@
         <item name="colorOnSecondary">#ffffff</item>
         <!-- END OF Colors -->
 
-        <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button.UnelevatedButton</item>
-        <item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface</item>
+        <item name="materialButtonStyle">@style/Widget.MaterialComponents.Button.UnelevatedButton
+        </item>
+        <item name="appBarLayoutStyle">
+            @style/Widget.MaterialComponents.AppBarLayout.PrimarySurface
+        </item>
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
-        <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
+        <item name="bottomAppBarStyle">
+            @style/Widget.MaterialComponents.BottomAppBar.PrimarySurface
+        </item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
     </style>
 
     <style name="Theme.TrainPlanner" parent="Theme.TrainPlanner.Base" />

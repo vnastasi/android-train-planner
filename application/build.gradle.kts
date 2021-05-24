@@ -12,6 +12,8 @@ plugins {
     kotlin("kapt")
     id("org.jetbrains.kotlin.plugin.allopen") version versions.lang.kotlin
     id("jacoco")
+    id("kotlin-android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -57,7 +59,7 @@ android {
     }
 
     buildFeatures {
-        dataBinding = true
+        dataBinding = false
         viewBinding = true
         compose = false
         aidl = false
@@ -131,11 +133,12 @@ dependencies {
     implementation("androidx.core:core-ktx:${versions.androidx.coreKtx}")
     implementation("androidx.fragment:fragment-ktx:${versions.androidx.fragment}")
     implementation("androidx.annotation:annotation:${versions.androidx.annotations}")
+    implementation("androidx.navigation:navigation-fragment-ktx:${versions.androidx.navigation}")
+    implementation("androidx.navigation:navigation-ui-ktx:${versions.androidx.navigation}")
     implementation("org.koin:koin-core:${versions.di.koin}")
     implementation("org.koin:koin-android:${versions.di.koin}")
-    implementation("com.github.razir.progressbutton:progressbutton:${versions.ui.progressButton}")
-    implementation("com.github.skydoves:balloon:${versions.ui.baloon}")
-    implementation("com.sagar:livedatapermission:${versions.ui.easyPermissions}")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("com.google.android.gms:play-services-maps:17.0.1")
 
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
@@ -159,6 +162,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-intents:${versions.androidx.espresso}")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:${versions.androidx.espresso}")
     androidTestImplementation("androidx.arch.core:core-testing:${versions.androidx.archCore}")
+    androidTestImplementation("androidx.navigation:navigation-testing:${versions.androidx.navigation}")
     androidTestImplementation("org.koin:koin-test:${versions.di.koin}") {
         exclude(group = "org.mockito", module = "mockito-inline")
     }
