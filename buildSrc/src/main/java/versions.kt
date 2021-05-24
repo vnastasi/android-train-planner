@@ -23,7 +23,7 @@ object versions {
         const val constraintLayout = "2.0.2"
         const val recyclerview = "1.1.0"
         const val swipeRefreshLayout = "1.1.0"
-        const val materialDesign = "1.2.1"
+        const val materialDesign = "1.3.0"
         const val archCore = "2.1.0"
         const val lifecycle = "2.2.0"
         const val fragment = "1.2.5"
