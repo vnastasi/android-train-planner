@@ -117,6 +117,8 @@ allOpen {
 
 dependencies {
 
+    implementation(project(":core:exception"))
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.lang.coroutines}")
@@ -174,4 +176,8 @@ dependencies {
     debugImplementation("androidx.fragment:fragment-testing:${versions.androidx.fragment}")
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
 }
