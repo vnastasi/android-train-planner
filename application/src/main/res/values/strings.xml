@@ -1,11 +1,19 @@
 <resources>
+
     <string name="app_name">Train planner</string>
+
+    <string name="screen_title_dashboard">Dashboard</string>
+
     <string name="input_hint_user_name">User name</string>
     <string name="input_hint_password">Password</string>
+    <string name="input_hint_departure_station">From station</string>
+    <string name="input_hint_arrival_station">To station</string>
+
     <string name="button_login">Login</string>
-    <string name="screen_title_dashboard">Dashboard</string>
+    <string name="btn_find_trips">Find trip</string>
+
     <string name="menu_item_planner">Planner</string>
     <string name="menu_item_map">Map</string>
-    <string name="enu_item_disruptions">Disruptions</string>
+    <string name="menu_item_disruptions">Disruptions</string>
 
 </resources>

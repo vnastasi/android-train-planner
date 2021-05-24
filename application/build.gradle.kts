@@ -138,6 +138,7 @@ dependencies {
     implementation("org.koin:koin-core:${versions.di.koin}")
     implementation("org.koin:koin-android:${versions.di.koin}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("com.google.android.gms:play-services-maps:17.0.1")
 
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
