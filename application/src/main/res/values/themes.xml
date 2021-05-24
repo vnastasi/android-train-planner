@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.TrainPlanner.Base" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.TrainPlanner.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Colors -->
         <item name="android:windowBackground">#e3f2fd</item>
         <item name="android:statusBarColor">?attr/colorPrimary</item>

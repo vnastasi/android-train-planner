@@ -17,6 +17,8 @@
             android:layout_marginStart="@dimen/core_content_padding"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="@dimen/core_content_padding"
+            android:clickable="true"
+            android:focusable="true"
             android:hint="@string/input_hint_departure_station"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +27,11 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="none"
+                tools:ignore="KeyboardInaccessibleWidget" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,6 +42,8 @@
             android:layout_marginStart="@dimen/core_content_padding"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/core_content_padding"
+            android:clickable="true"
+            android:focusable="true"
             android:hint="@string/input_hint_arrival_station"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +52,11 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="none"
+                tools:ignore="KeyboardInaccessibleWidget" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

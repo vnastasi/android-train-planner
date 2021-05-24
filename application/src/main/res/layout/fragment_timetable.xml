@@ -11,9 +11,11 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_navigate_back"
+            app:navigationIconTint="?attr/colorOnPrimarySurface"
             tools:title="Amsterdam Central" />
 
         <com.google.android.material.tabs.TabLayout

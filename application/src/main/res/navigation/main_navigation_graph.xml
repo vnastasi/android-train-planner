@@ -25,11 +25,25 @@
 
         <action
             android:id="@+id/action_dashboard_to_timetable"
-            app:destination="@id/timetable" />
+            app:destination="@id/timetable">
+
+            <argument
+                android:name="stationId"
+                app:argType="string" />
+
+        </action>
 
         <action
             android:id="@+id/action_dashboard_to_station_search"
-            app:destination="@id/station_search" />
+            app:destination="@id/station_search">
+
+            <argument
+                android:name="preselectedStationId"
+                android:defaultValue="@null"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
 
     </fragment>
 
@@ -37,12 +51,26 @@
         android:id="@+id/timetable"
         android:name="md.vnastasi.trainplanner.timetable.TimetableFragment"
         android:label="fragment_timetable"
-        tools:layout="@layout/fragment_timetable" />
+        tools:layout="@layout/fragment_timetable">
+
+        <argument
+            android:name="stationId"
+            app:argType="string" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/station_search"
         android:name="md.vnastasi.trainplanner.station.StationSearchFragment"
         android:label="fragment_station_search"
-        tools:layout="@layout/fragment_station_search" />
+        tools:layout="@layout/fragment_station_search">
+
+        <argument
+            android:name="preselectedStationId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+    </fragment>
 
 </navigation>
