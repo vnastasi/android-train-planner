@@ -1,4 +1,5 @@
 import java.util.*
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val appProperties: Properties =
     rootDir.resolve("application.properties")
@@ -137,6 +138,8 @@ dependencies {
     implementation("androidx.annotation:annotation:${versions.androidx.annotations}")
     implementation("androidx.navigation:navigation-fragment-ktx:${versions.androidx.navigation}")
     implementation("androidx.navigation:navigation-ui-ktx:${versions.androidx.navigation}")
+    implementation("androidx.datastore:datastore-preferences-core:${versions.androidx.dataStore}")
+    implementation("androidx.preference:preference-ktx:${versions.androidx.preference}")
     implementation("org.koin:koin-core:${versions.di.koin}")
     implementation("org.koin:koin-android:${versions.di.koin}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
@@ -180,4 +183,5 @@ dependencies {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+    kotlinOptions.languageVersion = "1.4"
 }

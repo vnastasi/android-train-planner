@@ -36,6 +36,8 @@ object versions {
         const val playServices = "17.1.0"
         const val desugar = "1.0.10"
         const val navigation = "2.3.5"
+        const val dataStore = "1.0.0-beta01"
+        const val preference = "1.1.1"
     }
 
     object testing {
