@@ -1,4 +1,4 @@
-package md.vnastasi.trainplanner.nav
+package md.vnastasi.trainplanner.main
 
 import androidx.appcompat.app.AppCompatActivity
 import md.vnastasi.trainplanner.R

@@ -119,6 +119,7 @@ allOpen {
 dependencies {
 
     implementation(project(":core:async"))
+    implementation(project(":core:di"))
     implementation(project(":core:exception"))
     implementation(project(":core:ui"))
 
@@ -139,7 +140,7 @@ dependencies {
     implementation("androidx.annotation:annotation:${versions.androidx.annotations}")
     implementation("androidx.navigation:navigation-fragment-ktx:${versions.androidx.navigation}")
     implementation("androidx.navigation:navigation-ui-ktx:${versions.androidx.navigation}")
-    implementation("androidx.datastore:datastore-preferences-core:${versions.androidx.dataStore}")
+    implementation("androidx.datastore:datastore-preferences:${versions.androidx.dataStore}")
     implementation("androidx.preference:preference-ktx:${versions.androidx.preference}")
     implementation("org.koin:koin-core:${versions.di.koin}")
     implementation("org.koin:koin-android:${versions.di.koin}")

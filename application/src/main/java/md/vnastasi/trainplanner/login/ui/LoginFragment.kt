@@ -15,7 +15,7 @@ import md.vnastasi.trainplanner.login.repository.AuthenticationFailureReason
 import md.vnastasi.trainplanner.ui.providingActivityViewModels
 import md.vnastasi.trainplanner.ui.whileStarted
 
-class LoginFragment(viewModelProvider: LoginViewModel.Provider) : Fragment() {
+class LoginFragment(private val viewModelProvider: LoginViewModel.Provider) : Fragment() {
 
     private var _viewBinding: FragmentLoginBinding? = null
     private val viewBinding: FragmentLoginBinding get() = requireNotNull(_viewBinding)
