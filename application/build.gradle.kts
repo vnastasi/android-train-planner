@@ -119,6 +119,7 @@ allOpen {
 dependencies {
 
     implementation(project(":core:exception"))
+    implementation(project(":core:async"))
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")

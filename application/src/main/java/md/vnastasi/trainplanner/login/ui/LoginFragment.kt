@@ -1,4 +1,4 @@
-package md.vnastasi.trainplanner.login
+package md.vnastasi.trainplanner.login.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
