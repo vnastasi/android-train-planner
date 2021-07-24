@@ -47,9 +47,8 @@ android {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    implementation("androidx.lifecycle:lifecycle-livedata:${versions.androidx.lifecycle}")
-    implementation("androidx.lifecycle:lifecycle-viewmodel:${versions.androidx.lifecycle}")
-    implementation("androidx.lifecycle:lifecycle-extensions:${versions.androidx.lifecycle}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidx.lifecycle}")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidx.lifecycle}")
     implementation("androidx.core:core-ktx:${versions.androidx.coreKtx}")
     implementation("androidx.fragment:fragment-ktx:${versions.androidx.fragment}")
     implementation("androidx.annotation:annotation:${versions.androidx.annotations}")

@@ -44,4 +44,12 @@ class LoginViewModel(
                 .collect { _viewState.value = it }
         }
     }
+
+    class Provider(
+        private val checkCredentialsUseCase: CheckCredentialsUseCase,
+        private val performAuthenticationUseCase: PerformAuthenticationUseCase
+    ) {
+
+        fun provide(): LoginViewModel = LoginViewModel(checkCredentialsUseCase, performAuthenticationUseCase)
+    }
 }

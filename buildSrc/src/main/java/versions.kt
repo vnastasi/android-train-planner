@@ -25,7 +25,7 @@ object versions {
         const val swipeRefreshLayout = "1.1.0"
         const val materialDesign = "1.3.0"
         const val archCore = "2.1.0"
-        const val lifecycle = "2.2.0"
+        const val lifecycle = "2.4.0-alpha02"
         const val fragment = "1.2.5"
         const val coreKtx = "1.3.2"
         const val room = "2.2.5"
