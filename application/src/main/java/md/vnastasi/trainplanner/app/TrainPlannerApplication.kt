@@ -11,7 +11,7 @@ class TrainPlannerApplication : Application() {
         super.onCreate()
         initModules(
             NavigationModule,
-            LoginModule
+            LoginModule(this)
         )
     }
 }

@@ -1,5 +1,6 @@
 package md.vnastasi.trainplanner.login
 
+import android.app.Application
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +20,7 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-object LoginModule : ModuleDefinition {
+class LoginModule(private val application: Application) : ModuleDefinition {
 
     override val module: Module = module {
 
@@ -28,7 +29,7 @@ object LoginModule : ModuleDefinition {
         }
 
         factory<CredentialsStorageRepository> {
-            CredentialsStorageRepositoryImpl(androidApplication().dataStore)
+            CredentialsStorageRepositoryImpl(application.dataStore)
         }
 
         factory {
