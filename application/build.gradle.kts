@@ -147,6 +147,9 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.google.android.gms:play-services-maps:17.0.1")
 
+    testImplementation(project(":test:core-test"))
+    testImplementation(project(":test:async-test"))
+
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
     testImplementation("org.koin:koin-test:${versions.di.koin}")
@@ -154,6 +157,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
     testImplementation("org.mockito:mockito-core:${versions.testing.mockito}")
+    testImplementation("org.mockito:mockito-inline:${versions.testing.mockito}")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
         exclude(group = "org.mockito", module = "mockito-core")
     }
@@ -183,7 +187,7 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
     kotlinOptions.languageVersion = "1.4"
 }

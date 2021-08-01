@@ -20,7 +20,9 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-class LoginModule(private val application: Application) : ModuleDefinition {
+class LoginModule(
+    private val application: Application
+) : ModuleDefinition {
 
     override val module: Module = module {
 
@@ -37,15 +39,22 @@ class LoginModule(private val application: Application) : ModuleDefinition {
         }
 
         factory {
-            CheckCredentialsUseCase(get())
+            CheckCredentialsUseCase(credentialsStorageRepository = get())
         }
 
         factory {
-            PerformAuthenticationUseCase(get(), get(), get())
+            PerformAuthenticationUseCase(
+                authenticationRepository = get(),
+                credentialsStorageRepository = get(),
+                encodeCredentialsUseCase = get()
+            )
         }
 
         factory {
-            LoginViewModel.Provider(get(), get())
+            LoginViewModel.Provider(
+                performAuthenticationUseCase = get(),
+                checkCredentialsUseCase = get()
+            )
         }
     }
 
