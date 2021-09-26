@@ -18,30 +18,30 @@ plugins {
 }
 
 android {
-    compileSdkVersion(versions.project.targetSdk)
+    compileSdk = versions.project.targetSdk
 
     defaultConfig {
         applicationId = "md.vnastasi.trainplanner"
-        minSdkVersion(versions.project.minSdk)
-        targetSdkVersion(versions.project.targetSdk)
+        minSdk = versions.project.minSdk
+        targetSdk = versions.project.targetSdk
         versionCode = 1
         versionName = "0.0.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField(
-            "String",
-            "API_BASE_URL",
-            "\"${appProperties.getProperty("application.api.base-url")}\""
+            type ="String",
+            name = "API_BASE_URL",
+            value = "\"${appProperties.getProperty("application.api.base-url")}\""
         )
         buildConfigField(
-            "String",
-            "APP_USER",
-            "\"${appProperties.getProperty("application.api.credentials.username")}\""
+            type ="String",
+            name = "APP_USER",
+            value = "\"${appProperties.getProperty("application.api.credentials.username")}\""
         )
         buildConfigField(
-            "String",
-            "APP_PASSWORD",
-            "\"${appProperties.getProperty("application.api.credentials.password")}\""
+            type = "String",
+            name = "APP_PASSWORD",
+            value = "\"${appProperties.getProperty("application.api.credentials.password")}\""
         )
     }
 
@@ -71,12 +71,12 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
         useIR = true
     }
 
