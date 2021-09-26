@@ -142,8 +142,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:${versions.androidx.navigation}")
     implementation("androidx.datastore:datastore-preferences:${versions.androidx.dataStore}")
     implementation("androidx.preference:preference-ktx:${versions.androidx.preference}")
-    implementation("org.koin:koin-core:${versions.di.koin}")
-    implementation("org.koin:koin-android:${versions.di.koin}")
+    implementation("io.insert-koin:koin-core:${versions.di.koin}")
+    implementation("io.insert-koin:koin-android:${versions.di.koin}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.google.android.gms:play-services-maps:17.0.1")
 
@@ -152,7 +152,7 @@ dependencies {
 
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
-    testImplementation("org.koin:koin-test:${versions.di.koin}")
+    testImplementation("io.insert-koin:koin-test:${versions.di.koin}")
     testImplementation("androidx.arch.core:core-testing:${versions.androidx.archCore}")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
@@ -174,7 +174,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-contrib:${versions.androidx.espresso}")
     androidTestImplementation("androidx.arch.core:core-testing:${versions.androidx.archCore}")
     androidTestImplementation("androidx.navigation:navigation-testing:${versions.androidx.navigation}")
-    androidTestImplementation("org.koin:koin-test:${versions.di.koin}") {
+    androidTestImplementation("io.insert-koin:koin-test:${versions.di.koin}") {
         exclude(group = "org.mockito", module = "mockito-inline")
     }
     androidTestImplementation("org.mockito:mockito-android:${versions.testing.mockito}")

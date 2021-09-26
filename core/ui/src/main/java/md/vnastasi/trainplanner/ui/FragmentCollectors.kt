@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 fun Fragment.whileStarted(block: suspend () -> Unit) {
     viewLifecycleOwner.lifecycleScope.launch {
-        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             block.invoke()
         }
     }
@@ -17,7 +17,7 @@ fun Fragment.whileStarted(block: suspend () -> Unit) {
 
 fun DialogFragment.whileStarted(block: suspend () -> Unit) {
     lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
+        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             block.invoke()
         }
     }

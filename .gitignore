@@ -75,3 +75,5 @@ lint/tmp/
 # lint/reports/
 
 application.properties
+
+.java-version

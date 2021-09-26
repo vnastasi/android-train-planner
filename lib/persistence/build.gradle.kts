@@ -69,7 +69,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.lang.coroutines}")
-    implementation("org.koin:koin-core:${versions.di.koin}")
+    implementation("io.insert-koin:koin-core:${versions.di.koin}")
     implementation("androidx.room:room-runtime:${versions.androidx.room}")
     implementation("androidx.room:room-ktx:${versions.androidx.room}")
     implementation("androidx.lifecycle:lifecycle-livedata:${versions.androidx.lifecycle}")
@@ -83,7 +83,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
-    testImplementation("org.koin:koin-test:${versions.di.koin}")
+    testImplementation("io.insert-koin:koin-test:${versions.di.koin}")
     testImplementation("org.mockito:mockito-core:${versions.testing.mockito}")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
         exclude(group = "org.mockito", module = "mockito-core")
