@@ -4,7 +4,7 @@ object versions {
 
     object project {
 
-        const val agp = "7.0.2"
+        const val agp = "7.0.3"
         const val minSdk = 23
         const val targetSdk = 30
         const val versionCode = 1
