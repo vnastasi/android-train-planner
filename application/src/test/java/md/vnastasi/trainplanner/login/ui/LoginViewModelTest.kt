@@ -35,7 +35,7 @@ internal class LoginViewModelTest {
 
         viewModel.onLogin(USERNAME, PASSWORD)
 
-        consumingFow(limit = 2) { viewModel.viewState }
+        consumingFow() { viewModel.viewState }
             .hasData()
             .all {
                 hasSize(1)
