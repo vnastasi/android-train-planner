@@ -17,7 +17,6 @@ class LoginViewModel(
 
     fun onLogin(userName: String, password: String) {
         viewModelScope.launch(DispatcherRegistry.Main) {
-            _viewState.value = LoginUiStateModel.AuthenticationInProgress
             performAuthenticationUseCase.execute(userName, password)
                 .map { result ->
                     when (result) {
