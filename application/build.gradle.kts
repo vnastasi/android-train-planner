@@ -1,4 +1,5 @@
 import java.util.*
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val appProperties: Properties =
     rootDir.resolve("application.properties")
@@ -17,30 +18,30 @@ plugins {
 }
 
 android {
-    compileSdkVersion(versions.project.targetSdk)
+    compileSdk = versions.project.targetSdk
 
     defaultConfig {
         applicationId = "md.vnastasi.trainplanner"
-        minSdkVersion(versions.project.minSdk)
-        targetSdkVersion(versions.project.targetSdk)
+        minSdk = versions.project.minSdk
+        targetSdk = versions.project.targetSdk
         versionCode = 1
         versionName = "0.0.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField(
-            "String",
-            "API_BASE_URL",
-            "\"${appProperties.getProperty("application.api.base-url")}\""
+            type ="String",
+            name = "API_BASE_URL",
+            value = "\"${appProperties.getProperty("application.api.base-url")}\""
         )
         buildConfigField(
-            "String",
-            "APP_USER",
-            "\"${appProperties.getProperty("application.api.credentials.username")}\""
+            type ="String",
+            name = "APP_USER",
+            value = "\"${appProperties.getProperty("application.api.credentials.username")}\""
         )
         buildConfigField(
-            "String",
-            "APP_PASSWORD",
-            "\"${appProperties.getProperty("application.api.credentials.password")}\""
+            type = "String",
+            name = "APP_PASSWORD",
+            value = "\"${appProperties.getProperty("application.api.credentials.password")}\""
         )
     }
 
@@ -70,12 +71,12 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
         useIR = true
     }
 
@@ -117,6 +118,11 @@ allOpen {
 
 dependencies {
 
+    implementation(project(":core:async"))
+    implementation(project(":core:di"))
+    implementation(project(":core:exception"))
+    implementation(project(":core:ui"))
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.lang.coroutines}")
@@ -127,26 +133,31 @@ dependencies {
     implementation("com.google.android.material:material:${versions.androidx.materialDesign}")
     implementation("com.google.android.gms:play-services-location:${versions.androidx.playServices}")
     implementation("androidx.arch.core:core-runtime:${versions.androidx.archCore}")
-    implementation("androidx.lifecycle:lifecycle-livedata:${versions.androidx.lifecycle}")
-    implementation("androidx.lifecycle:lifecycle-viewmodel:${versions.androidx.lifecycle}")
-    implementation("androidx.lifecycle:lifecycle-extensions:${versions.androidx.lifecycle}")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidx.lifecycle}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidx.lifecycle}")
     implementation("androidx.core:core-ktx:${versions.androidx.coreKtx}")
     implementation("androidx.fragment:fragment-ktx:${versions.androidx.fragment}")
     implementation("androidx.annotation:annotation:${versions.androidx.annotations}")
     implementation("androidx.navigation:navigation-fragment-ktx:${versions.androidx.navigation}")
     implementation("androidx.navigation:navigation-ui-ktx:${versions.androidx.navigation}")
-    implementation("org.koin:koin-core:${versions.di.koin}")
-    implementation("org.koin:koin-android:${versions.di.koin}")
+    implementation("androidx.datastore:datastore-preferences:${versions.androidx.dataStore}")
+    implementation("androidx.preference:preference-ktx:${versions.androidx.preference}")
+    implementation("io.insert-koin:koin-core:${versions.di.koin}")
+    implementation("io.insert-koin:koin-android:${versions.di.koin}")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.google.android.gms:play-services-maps:17.0.1")
 
+    testImplementation(project(":test:core-test"))
+    testImplementation(project(":test:async-test"))
+
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
-    testImplementation("org.koin:koin-test:${versions.di.koin}")
+    testImplementation("io.insert-koin:koin-test:${versions.di.koin}")
     testImplementation("androidx.arch.core:core-testing:${versions.androidx.archCore}")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
     testImplementation("org.mockito:mockito-core:${versions.testing.mockito}")
+    testImplementation("org.mockito:mockito-inline:${versions.testing.mockito}")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
         exclude(group = "org.mockito", module = "mockito-core")
     }
@@ -163,7 +174,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-contrib:${versions.androidx.espresso}")
     androidTestImplementation("androidx.arch.core:core-testing:${versions.androidx.archCore}")
     androidTestImplementation("androidx.navigation:navigation-testing:${versions.androidx.navigation}")
-    androidTestImplementation("org.koin:koin-test:${versions.di.koin}") {
+    androidTestImplementation("io.insert-koin:koin-test:${versions.di.koin}") {
         exclude(group = "org.mockito", module = "mockito-inline")
     }
     androidTestImplementation("org.mockito:mockito-android:${versions.testing.mockito}")
@@ -174,4 +185,9 @@ dependencies {
     debugImplementation("androidx.fragment:fragment-testing:${versions.androidx.fragment}")
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+    kotlinOptions.languageVersion = "1.4"
 }

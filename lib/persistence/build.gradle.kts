@@ -5,13 +5,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(versions.project.targetSdk)
+    compileSdk = versions.project.targetSdk
 
     defaultConfig {
-        minSdkVersion(versions.project.minSdk)
-        targetSdkVersion(versions.project.targetSdk)
-        versionCode = versions.project.versionCode
-        versionName = versions.project.versionName
+        minSdk = versions.project.minSdk
+        targetSdk = versions.project.targetSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,12 +35,12 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
         useIR = true
     }
 
@@ -71,7 +69,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.lang.coroutines}")
-    implementation("org.koin:koin-core:${versions.di.koin}")
+    implementation("io.insert-koin:koin-core:${versions.di.koin}")
     implementation("androidx.room:room-runtime:${versions.androidx.room}")
     implementation("androidx.room:room-ktx:${versions.androidx.room}")
     implementation("androidx.lifecycle:lifecycle-livedata:${versions.androidx.lifecycle}")
@@ -85,7 +83,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
-    testImplementation("org.koin:koin-test:${versions.di.koin}")
+    testImplementation("io.insert-koin:koin-test:${versions.di.koin}")
     testImplementation("org.mockito:mockito-core:${versions.testing.mockito}")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
         exclude(group = "org.mockito", module = "mockito-core")

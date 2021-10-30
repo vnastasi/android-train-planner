@@ -6,13 +6,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(versions.project.targetSdk)
+    compileSdk = versions.project.targetSdk
 
     defaultConfig {
-        minSdkVersion(versions.project.minSdk)
-        targetSdkVersion(versions.project.targetSdk)
-        versionCode = versions.project.versionCode
-        versionName = versions.project.versionName
+        minSdk = versions.project.minSdk
+        targetSdk = versions.project.targetSdk
     }
 
     buildTypes {
@@ -37,12 +35,12 @@ android {
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
         useIR = true
     }
 
@@ -75,7 +73,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:${versions.network.retrofit}")
     implementation("com.squareup.okhttp3:logging-interceptor:${versions.network.okHttp3}")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${versions.network.retrofitKotlinSerialization}")
-    implementation("org.koin:koin-core:${versions.di.koin}")
+    implementation("io.insert-koin:koin-core:${versions.di.koin}")
 
     testImplementation(project(":test:core-test"))
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
@@ -83,7 +81,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
     testImplementation("com.squareup.okhttp3:mockwebserver:${versions.network.okHttp3}")
-    testImplementation("org.koin:koin-test:${versions.di.koin}")
+    testImplementation("io.insert-koin:koin-test:${versions.di.koin}")
     testImplementation("org.mockito:mockito-core:${versions.testing.mockito}")
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
         exclude(group = "org.mockito", module = "mockito-core")
