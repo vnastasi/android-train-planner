@@ -4,7 +4,7 @@ import md.vnastasi.trainplanner.exception.FailureReason
 
 sealed class LoginUiStateModel {
 
-    object AuthenticationRequired : LoginUiStateModel()
+    object Pending : LoginUiStateModel()
 
     object Authenticated : LoginUiStateModel()
 

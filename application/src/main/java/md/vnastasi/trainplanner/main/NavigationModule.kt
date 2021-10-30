@@ -10,6 +10,7 @@ object NavigationModule : ModuleDefinition {
 
         factory {
             MainNavHostFragmentFactory(
+                splashViewModelProvider = get(),
                 loginViewModelProvider = get()
             )
         }

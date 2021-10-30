@@ -12,7 +12,7 @@ import md.vnastasi.trainplanner.R
 import md.vnastasi.trainplanner.databinding.FragmentLoginBinding
 import md.vnastasi.trainplanner.exception.FailureReason
 import md.vnastasi.trainplanner.login.repository.AuthenticationFailureReason
-import md.vnastasi.trainplanner.ui.providingActivityViewModels
+import md.vnastasi.trainplanner.ui.providingViewModels
 import md.vnastasi.trainplanner.ui.whileStarted
 
 class LoginFragment(private val viewModelProvider: LoginViewModel.Provider) : Fragment() {
@@ -20,12 +20,10 @@ class LoginFragment(private val viewModelProvider: LoginViewModel.Provider) : Fr
     private var _viewBinding: FragmentLoginBinding? = null
     private val viewBinding: FragmentLoginBinding get() = requireNotNull(_viewBinding)
 
-    private val viewModel by providingActivityViewModels { viewModelProvider.provide() }
+    private val viewModel by providingViewModels { viewModelProvider.provide() }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _viewBinding = FragmentLoginBinding.inflate(inflater, container, false)
-        return viewBinding.root
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        FragmentLoginBinding.inflate(inflater, container, false).also { _viewBinding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewBinding.btnLogin.setOnClickListener {
@@ -48,9 +46,9 @@ class LoginFragment(private val viewModelProvider: LoginViewModel.Provider) : Fr
 
     private fun onViewStateChanged(viewState: LoginUiStateModel) {
         when (viewState) {
+            is LoginUiStateModel.Pending -> Unit
             is LoginUiStateModel.AuthenticationInProgress -> Unit
-            is LoginUiStateModel.AuthenticationRequired -> Unit
-            is LoginUiStateModel.Authenticated -> requireParentFragment().findNavController().navigate(R.id.dashboard)
+            is LoginUiStateModel.Authenticated -> requireParentFragment().findNavController().navigate(R.id.action_login_to_dashboard)
             is LoginUiStateModel.AuthenticationFailed -> renderErrors(viewState.reason)
         }
     }

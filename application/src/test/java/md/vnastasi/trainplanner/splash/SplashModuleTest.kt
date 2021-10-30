@@ -1,9 +1,8 @@
-package md.vnastasi.trainplanner.main
+package md.vnastasi.trainplanner.splash
 
 import android.app.Application
 import com.nhaarman.mockitokotlin2.mock
 import md.vnastasi.trainplanner.login.LoginModule
-import md.vnastasi.trainplanner.splash.SplashModule
 import org.junit.jupiter.api.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -11,7 +10,7 @@ import org.koin.core.logger.PrintLogger
 import org.koin.test.check.checkModules
 import org.mockito.Mockito
 
-internal class NavigationModuleTest {
+internal class SplashModuleTest {
 
     @Test
     internal fun testModule() {
@@ -21,9 +20,8 @@ internal class NavigationModuleTest {
             logger(PrintLogger())
             koin.loadModules(
                 listOf(
-                    SplashModule.module,
                     LoginModule(mockApplication).module,
-                    NavigationModule.module
+                    SplashModule.module
                 )
             )
         }

@@ -1,7 +1,6 @@
 package md.vnastasi.trainplanner.test.core
 
 import assertk.Assert
-import assertk.Result
 import assertk.assertThat
 import assertk.assertions.isNotNull
 import assertk.assertions.isSuccess

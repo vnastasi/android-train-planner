@@ -12,15 +12,16 @@ sealed class AsyncResult<out T : Any> {
     data class Failure(val exception: ApplicationException) : AsyncResult<Nothing>()
 }
 
-fun <T : Any> Result<T>.toAsyncResult(): AsyncResult<T> = if (this.isSuccess) {
-    AsyncResult.Success(this.getOrThrow())
-} else {
-    val exception = when (val cause = this.exceptionOrNull()) {
-        is ApplicationException -> cause
-        else -> ApplicationException(UnknownFailureReason(), cause)
+fun <T : Any> Result<T>.toAsyncResult(): AsyncResult<T> =
+    if (this.isSuccess) {
+        AsyncResult.Success(this.getOrThrow())
+    } else {
+        val exception = when (val cause = this.exceptionOrNull()) {
+            is ApplicationException -> cause
+            else -> ApplicationException(UnknownFailureReason(), cause)
+        }
+        AsyncResult.Failure(exception)
     }
-    AsyncResult.Failure(exception)
-}
 
 private class UnknownFailureReason : FailureReason {
 

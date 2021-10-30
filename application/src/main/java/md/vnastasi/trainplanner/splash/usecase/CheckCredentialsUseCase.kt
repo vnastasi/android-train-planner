@@ -1,4 +1,4 @@
-package md.vnastasi.trainplanner.login.usecase
+package md.vnastasi.trainplanner.splash.usecase
 
 import md.vnastasi.trainplanner.login.repository.CredentialsStorageRepository
 
