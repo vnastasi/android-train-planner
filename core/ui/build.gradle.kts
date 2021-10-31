@@ -46,9 +46,8 @@ dependencies {
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.core)
     implementation(libs.androidx.fragment)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.kotlin.stdlib.jdk7)
+    implementation(libs.bundles.androidx.lifecycle)
 
     coreLibraryDesugaring(libs.androidx.desugar)
 }

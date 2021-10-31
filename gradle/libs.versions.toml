@@ -110,6 +110,16 @@ mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref =
 mockito-kotlin = { group = "com.nhaarman.mockitokotlin2", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
 
 
+[bundles]
+
+androidx-espresso = [ "androidx-espresso-core", "androidx-espresso-contrib", "androidx-espresso-intents" ]
+androidx-lifecycle = [ "androidx-lifecycle-livedata", "androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel" ]
+androidx-navigation = [ "androidx-navigation-fragment", "androidx-navigation-ui" ]
+androidx-test = [ "androidx-test-core", "androidx-test-junit", "androidx-test-rules", "androidx-test-runner" ]
+androidx-ui = [ "androidx-appcompat", "androidx-constraintlayout", "androidx-recyclerview", "androidx-swiperefreshlayout", "google-material" ]
+mockito = [ "mockito-core", "mockito-inline", "mockito-kotlin" ]
+
+
 [plugins]
 
 kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin-core" }

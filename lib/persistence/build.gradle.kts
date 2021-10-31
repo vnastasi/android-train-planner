@@ -83,10 +83,7 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.kotlin.reflect)
-    testImplementation(libs.mockito.core)
-    testImplementation(libs.mockito.kotlin) {
-        exclude(group = "org.mockito", module = "mockito-core")
-    }
+    testImplementation(libs.bundles.mockito)
 
     testRuntimeOnly(libs.junit.jupiter.engine)
 
@@ -94,12 +91,9 @@ dependencies {
     androidTestImplementation(project(":test:core-test"))
     androidTestImplementation(libs.assertk)
     androidTestImplementation(libs.androidx.room.test)
-    androidTestImplementation(libs.androidx.test.core)
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.androidx.test.rules)
-    androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.junit.legacy)
     androidTestImplementation(libs.kotlin.reflect)
+    androidTestImplementation(libs.bundles.androidx.test)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

@@ -81,11 +81,8 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.kotlin.reflect)
-    testImplementation(libs.mockito.core)
-    testImplementation(libs.mockito.kotlin) {
-        exclude(group = "org.mockito", module = "mockito-core")
-    }
     testImplementation(libs.okhttp.server)
+    testImplementation(libs.bundles.mockito)
 
     testRuntimeOnly(libs.junit.jupiter.engine)
 }

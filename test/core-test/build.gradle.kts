@@ -46,10 +46,7 @@ dependencies {
     compileOnly(libs.assertk)
     compileOnly(libs.kotlin.coroutines.test)
     compileOnly(libs.kotlin.stdlib.jdk7)
-    compileOnly(libs.mockito.core)
-    compileOnly(libs.mockito.kotlin) {
-        exclude(group = "org.mockito", module = "mockito-core")
-    }
+    compileOnly(libs.bundles.mockito)
 
     coreLibraryDesugaring(libs.androidx.desugar)
 }

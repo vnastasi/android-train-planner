@@ -122,20 +122,11 @@ dependencies {
     implementation(project(":core:exception"))
     implementation(project(":core:ui"))
     implementation(libs.androidx.annotation)
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.arch.runtime)
-    implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.fragment)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.preference)
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.swiperefreshlayout)
-    implementation(libs.google.material)
     implementation(libs.google.play.location)
     implementation(libs.google.play.maps)
     implementation(libs.koin.android)
@@ -143,6 +134,9 @@ dependencies {
     implementation(libs.kotlin.coroutines.android)
     implementation(libs.kotlin.coroutines.core)
     implementation(libs.kotlin.stdlib.jdk7)
+    implementation(libs.bundles.androidx.lifecycle)
+    implementation(libs.bundles.androidx.navigation)
+    implementation(libs.bundles.androidx.ui)
 
     debugImplementation(libs.androidx.fragment.test)
 
@@ -156,30 +150,19 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.kotlin.reflect)
-    testImplementation(libs.mockito.core)
-    testImplementation(libs.mockito.inline)
-    testImplementation(libs.mockito.kotlin) {
-        exclude(group = "org.mockito", module = "mockito-core")
-    }
+    testImplementation(libs.bundles.mockito)
 
     testRuntimeOnly(libs.junit.jupiter.engine)
 
     androidTestImplementation(libs.androidx.arch.test)
-    androidTestImplementation(libs.androidx.espresso.contrib)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.espresso.intents)
     androidTestImplementation(libs.androidx.navigation.test)
-    androidTestImplementation(libs.androidx.test.core)
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.androidx.test.rules)
-    androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.koin.test) {
         exclude(group = "org.mockito", module = "mockito-inline")
     }
     androidTestImplementation(libs.mockito.android)
-    androidTestImplementation(libs.mockito.kotlin) {
-        exclude(group = "org.mockito", module = "mockito-core")
-    }
+    androidTestImplementation(libs.bundles.androidx.espresso)
+    androidTestImplementation(libs.bundles.androidx.test)
+    androidTestImplementation(libs.bundles.mockito)
 }
 
 tasks.withType<KotlinCompile>().configureEach {
