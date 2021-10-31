@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("plugin.serialization") version versions.lang.kotlin
+    kotlin("plugin.serialization") version libs.versions.kotlin.core.get()
     id("jacoco")
 }
 
