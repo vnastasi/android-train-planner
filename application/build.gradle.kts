@@ -9,12 +9,12 @@ val appProperties: Properties =
 
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    id("org.jetbrains.kotlin.plugin.allopen") version libs.versions.kotlin.core.get()
-    id("jacoco")
-    id("kotlin-android")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-android")
+    id("jacoco")
+    alias(libs.plugins.kotlin.allopen)
 }
 
 android {

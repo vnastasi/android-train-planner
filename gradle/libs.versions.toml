@@ -109,4 +109,8 @@ mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mo
 mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref = "mockito" }
 mockito-kotlin = { group = "com.nhaarman.mockitokotlin2", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
 
+
 [plugins]
+
+kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin-core" }
+kotlin-serial = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-core" }

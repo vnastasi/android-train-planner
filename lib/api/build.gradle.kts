@@ -1,8 +1,8 @@
 plugins {
     id("com.android.library")
-    kotlin("android")
-    kotlin("plugin.serialization") version libs.versions.kotlin.core.get()
+    id("org.jetbrains.kotlin.android")
     id("jacoco")
+    alias(libs.plugins.kotlin.serial)
 }
 
 android {
