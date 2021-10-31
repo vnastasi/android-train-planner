@@ -10,10 +10,9 @@ java {
 
 dependencies {
     compileOnly(project(":core:async"))
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:${versions.lang.kotlin}")
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
-    compileOnly("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
+    compileOnly(libs.junit.jupiter)
+    compileOnly(libs.kotlin.coroutines.test)
+    compileOnly(libs.kotlin.stdlib)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

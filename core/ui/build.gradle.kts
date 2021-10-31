@@ -43,12 +43,12 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidx.lifecycle}")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidx.lifecycle}")
-    implementation("androidx.core:core-ktx:${versions.androidx.coreKtx}")
-    implementation("androidx.fragment:fragment-ktx:${versions.androidx.fragment}")
-    implementation("androidx.annotation:annotation:${versions.androidx.annotations}")
+    implementation(libs.androidx.annotation)
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.kotlin.stdlib.jdk7)
 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+    coreLibraryDesugaring(libs.androidx.desugar)
 }

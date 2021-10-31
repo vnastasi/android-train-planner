@@ -44,6 +44,6 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+    implementation(libs.kotlin.stdlib.jdk7)
+    coreLibraryDesugaring(libs.androidx.desugar)
 }

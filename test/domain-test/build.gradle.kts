@@ -44,6 +44,7 @@ android {
 
 dependencies {
     compileOnly(project(":core:domain"))
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+    compileOnly(libs.kotlin.stdlib.jdk7)
+
+    coreLibraryDesugaring(libs.androidx.desugar)
 }

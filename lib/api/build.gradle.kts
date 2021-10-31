@@ -65,30 +65,29 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:exception"))
     implementation(project(":core:utils"))
+    implementation(libs.koin.core)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.kotlin.serial.json)
+    implementation(libs.kotlin.stdlib.jdk7)
+    implementation(libs.okhttp.logging)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlin.serial)
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
-    implementation("com.squareup.retrofit2:retrofit:${versions.network.retrofit}")
-    implementation("com.squareup.okhttp3:logging-interceptor:${versions.network.okHttp3}")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${versions.network.retrofitKotlinSerialization}")
-    implementation("io.insert-koin:koin-core:${versions.di.koin}")
+    coreLibraryDesugaring(libs.androidx.desugar)
 
     testImplementation(project(":test:core-test"))
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
-    testImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
-    testImplementation("com.squareup.okhttp3:mockwebserver:${versions.network.okHttp3}")
-    testImplementation("io.insert-koin:koin-test:${versions.di.koin}")
-    testImplementation("org.mockito:mockito-core:${versions.testing.mockito}")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
+    testImplementation(libs.assertk)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.kotlin.coroutines.test)
+    testImplementation(libs.kotlin.reflect)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin) {
         exclude(group = "org.mockito", module = "mockito-core")
     }
+    testImplementation(libs.okhttp.server)
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${versions.testing.junitJupiter}")
-
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

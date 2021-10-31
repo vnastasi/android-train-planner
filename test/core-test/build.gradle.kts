@@ -43,12 +43,13 @@ android {
 }
 
 dependencies {
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
-    compileOnly("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
-    compileOnly("org.mockito:mockito-core:${versions.testing.mockito}")
-    compileOnly("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
+    compileOnly(libs.assertk)
+    compileOnly(libs.kotlin.coroutines.test)
+    compileOnly(libs.kotlin.stdlib.jdk7)
+    compileOnly(libs.mockito.core)
+    compileOnly(libs.mockito.kotlin) {
         exclude(group = "org.mockito", module = "mockito-core")
     }
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+
+    coreLibraryDesugaring(libs.androidx.desugar)
 }
