@@ -1,14 +1,14 @@
 plugins {
     id("com.android.library")
-    kotlin("android")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    compileSdk = versions.project.targetSdk
+    compileSdk = libs.versions.app.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = versions.project.minSdk
-        targetSdk = versions.project.targetSdk
+        minSdk = libs.versions.app.minSdk.get().toInt()
+        targetSdk = libs.versions.app.targetSdk.get().toInt()
     }
 
     buildTypes {
@@ -39,17 +39,15 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-        useIR = true
     }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidx.lifecycle}")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidx.lifecycle}")
-    implementation("androidx.core:core-ktx:${versions.androidx.coreKtx}")
-    implementation("androidx.fragment:fragment-ktx:${versions.androidx.fragment}")
-    implementation("androidx.annotation:annotation:${versions.androidx.annotations}")
+    implementation(libs.androidx.annotation)
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.fragment)
+    implementation(libs.kotlin.stdlib.jdk7)
+    implementation(libs.bundles.androidx.lifecycle)
 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+    coreLibraryDesugaring(libs.androidx.desugar)
 }

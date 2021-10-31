@@ -1,15 +1,15 @@
 plugins {
     id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
-    compileSdk = versions.project.targetSdk
+    compileSdk = libs.versions.app.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = versions.project.minSdk
-        targetSdk = versions.project.targetSdk
+        minSdk = libs.versions.app.minSdk.get().toInt()
+        targetSdk = libs.versions.app.targetSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,7 +41,6 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-        useIR = true
     }
 
     testOptions {
@@ -53,8 +52,8 @@ android {
                     includeEngines("junit-jupiter")
                 }
                 options.reports {
-                    junitXml.isEnabled = false
-                    html.isEnabled = true
+                    junitXml.required.set(false)
+                    html.required.set(true)
                 }
             }
         }
@@ -65,44 +64,36 @@ dependencies {
     implementation(project(":core:di"))
     implementation(project(":core:domain"))
     implementation(project(":core:exception"))
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.room)
+    implementation(libs.androidx.paging)
+    implementation(libs.koin.core)
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.kotlin.stdlib.jdk7)
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.lang.coroutines}")
-    implementation("io.insert-koin:koin-core:${versions.di.koin}")
-    implementation("androidx.room:room-runtime:${versions.androidx.room}")
-    implementation("androidx.room:room-ktx:${versions.androidx.room}")
-    implementation("androidx.lifecycle:lifecycle-livedata:${versions.androidx.lifecycle}")
-    implementation("androidx.paging:paging-runtime:2.1.2")
+    kapt(libs.androidx.room.compiler)
 
-    kapt("androidx.room:room-compiler:${versions.androidx.room}")
+    coreLibraryDesugaring(libs.androidx.desugar)
 
     testImplementation(project(":test:domain-test"))
     testImplementation(project(":test:core-test"))
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
-    testImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
-    testImplementation("io.insert-koin:koin-test:${versions.di.koin}")
-    testImplementation("org.mockito:mockito-core:${versions.testing.mockito}")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
-        exclude(group = "org.mockito", module = "mockito-core")
-    }
+    testImplementation(libs.assertk)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.kotlin.coroutines.test)
+    testImplementation(libs.kotlin.reflect)
+    testImplementation(libs.bundles.mockito)
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${versions.testing.junitJupiter}")
+    testRuntimeOnly(libs.junit.jupiter.engine)
 
     androidTestImplementation(project(":test:domain-test"))
     androidTestImplementation(project(":test:core-test"))
-    androidTestImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
-    androidTestImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:core:${versions.androidx.test}")
-    androidTestImplementation("androidx.test:runner:${versions.androidx.test}")
-    androidTestImplementation("androidx.test:rules:${versions.androidx.test}")
-    androidTestImplementation("androidx.test.ext:junit:${versions.androidx.testJunit}")
-    androidTestImplementation("androidx.room:room-testing:${versions.androidx.room}")
-    androidTestImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
-
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+    androidTestImplementation(libs.assertk)
+    androidTestImplementation(libs.androidx.room.test)
+    androidTestImplementation(libs.junit.legacy)
+    androidTestImplementation(libs.kotlin.reflect)
+    androidTestImplementation(libs.bundles.androidx.test)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

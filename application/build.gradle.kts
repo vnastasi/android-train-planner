@@ -9,21 +9,21 @@ val appProperties: Properties =
 
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    id("org.jetbrains.kotlin.plugin.allopen") version versions.lang.kotlin
-    id("jacoco")
-    id("kotlin-android")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-android")
+    id("jacoco")
+    alias(libs.plugins.kotlin.allopen)
 }
 
 android {
-    compileSdk = versions.project.targetSdk
+    compileSdk = libs.versions.app.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "md.vnastasi.trainplanner"
-        minSdk = versions.project.minSdk
-        targetSdk = versions.project.targetSdk
+        minSdk = libs.versions.app.minSdk.get().toInt()
+        targetSdk = libs.versions.app.targetSdk.get().toInt()
         versionCode = 1
         versionName = "0.0.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -77,7 +77,6 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-        useIR = true
     }
 
     sourceSets {
@@ -104,8 +103,8 @@ android {
                     includeEngines("junit-jupiter")
                 }
                 options.reports {
-                    junitXml.isEnabled = false
-                    html.isEnabled = true
+                    junitXml.required.set(false)
+                    html.required.set(true)
                 }
             }
         }
@@ -122,72 +121,51 @@ dependencies {
     implementation(project(":core:di"))
     implementation(project(":core:exception"))
     implementation(project(":core:ui"))
+    implementation(libs.androidx.annotation)
+    implementation(libs.androidx.arch.runtime)
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.preference)
+    implementation(libs.google.play.location)
+    implementation(libs.google.play.maps)
+    implementation(libs.koin.android)
+    implementation(libs.koin.core)
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.kotlin.stdlib.jdk7)
+    implementation(libs.bundles.androidx.lifecycle)
+    implementation(libs.bundles.androidx.navigation)
+    implementation(libs.bundles.androidx.ui)
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.lang.coroutines}")
-    implementation("androidx.appcompat:appcompat:${versions.androidx.appCompat}")
-    implementation("androidx.constraintlayout:constraintlayout:${versions.androidx.constraintLayout}")
-    implementation("androidx.recyclerview:recyclerview:${versions.androidx.recyclerview}")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:${versions.androidx.swipeRefreshLayout}")
-    implementation("com.google.android.material:material:${versions.androidx.materialDesign}")
-    implementation("com.google.android.gms:play-services-location:${versions.androidx.playServices}")
-    implementation("androidx.arch.core:core-runtime:${versions.androidx.archCore}")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidx.lifecycle}")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidx.lifecycle}")
-    implementation("androidx.core:core-ktx:${versions.androidx.coreKtx}")
-    implementation("androidx.fragment:fragment-ktx:${versions.androidx.fragment}")
-    implementation("androidx.annotation:annotation:${versions.androidx.annotations}")
-    implementation("androidx.navigation:navigation-fragment-ktx:${versions.androidx.navigation}")
-    implementation("androidx.navigation:navigation-ui-ktx:${versions.androidx.navigation}")
-    implementation("androidx.datastore:datastore-preferences:${versions.androidx.dataStore}")
-    implementation("androidx.preference:preference-ktx:${versions.androidx.preference}")
-    implementation("io.insert-koin:koin-core:${versions.di.koin}")
-    implementation("io.insert-koin:koin-android:${versions.di.koin}")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("com.google.android.gms:play-services-maps:17.0.1")
+    debugImplementation(libs.androidx.fragment.test)
+
+    coreLibraryDesugaring(libs.androidx.desugar)
 
     testImplementation(project(":test:core-test"))
     testImplementation(project(":test:async-test"))
+    testImplementation(libs.androidx.arch.test)
+    testImplementation(libs.assertk)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.kotlin.coroutines.test)
+    testImplementation(libs.kotlin.reflect)
+    testImplementation(libs.bundles.mockito)
 
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect:${versions.lang.kotlin}")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
-    testImplementation("io.insert-koin:koin-test:${versions.di.koin}")
-    testImplementation("androidx.arch.core:core-testing:${versions.androidx.archCore}")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${versions.testing.junitJupiter}")
-    testImplementation("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
-    testImplementation("org.mockito:mockito-core:${versions.testing.mockito}")
-    testImplementation("org.mockito:mockito-inline:${versions.testing.mockito}")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
-        exclude(group = "org.mockito", module = "mockito-core")
-    }
+    testRuntimeOnly(libs.junit.jupiter.engine)
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${versions.testing.junitJupiter}")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${versions.testing.junitJupiter}")
-
-    androidTestImplementation("androidx.test:core:${versions.androidx.test}")
-    androidTestImplementation("androidx.test:runner:${versions.androidx.test}")
-    androidTestImplementation("androidx.test:rules:${versions.androidx.test}")
-    androidTestImplementation("androidx.test.ext:junit:${versions.androidx.testJunit}")
-    androidTestImplementation("androidx.test.espresso:espresso-core:${versions.androidx.espresso}")
-    androidTestImplementation("androidx.test.espresso:espresso-intents:${versions.androidx.espresso}")
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:${versions.androidx.espresso}")
-    androidTestImplementation("androidx.arch.core:core-testing:${versions.androidx.archCore}")
-    androidTestImplementation("androidx.navigation:navigation-testing:${versions.androidx.navigation}")
-    androidTestImplementation("io.insert-koin:koin-test:${versions.di.koin}") {
+    androidTestImplementation(libs.androidx.arch.test)
+    androidTestImplementation(libs.androidx.navigation.test)
+    androidTestImplementation(libs.koin.test) {
         exclude(group = "org.mockito", module = "mockito-inline")
     }
-    androidTestImplementation("org.mockito:mockito-android:${versions.testing.mockito}")
-    androidTestImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
-        exclude(group = "org.mockito", module = "mockito-core")
-    }
-
-    debugImplementation("androidx.fragment:fragment-testing:${versions.androidx.fragment}")
-
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+    androidTestImplementation(libs.mockito.android)
+    androidTestImplementation(libs.bundles.androidx.espresso)
+    androidTestImplementation(libs.bundles.androidx.test)
+    androidTestImplementation(libs.bundles.mockito)
 }
 
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-    kotlinOptions.languageVersion = "1.4"
+    kotlinOptions.languageVersion = "1.5"
 }

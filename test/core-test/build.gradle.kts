@@ -1,14 +1,14 @@
 plugins {
     id("com.android.library")
-    kotlin("android")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    compileSdk = versions.project.targetSdk
+    compileSdk = libs.versions.app.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = versions.project.minSdk
-        targetSdk = versions.project.targetSdk
+        minSdk = libs.versions.app.minSdk.get().toInt()
+        targetSdk = libs.versions.app.targetSdk.get().toInt()
     }
 
     buildTypes {
@@ -39,17 +39,14 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-        useIR = true
     }
 }
 
 dependencies {
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.lang.coroutines}")
-    compileOnly("com.willowtreeapps.assertk:assertk-jvm:${versions.testing.assertK}")
-    compileOnly("org.mockito:mockito-core:${versions.testing.mockito}")
-    compileOnly("com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.testing.mockitoKotlin}") {
-        exclude(group = "org.mockito", module = "mockito-core")
-    }
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:${versions.androidx.desugar}")
+    compileOnly(libs.assertk)
+    compileOnly(libs.kotlin.coroutines.test)
+    compileOnly(libs.kotlin.stdlib.jdk7)
+    compileOnly(libs.bundles.mockito)
+
+    coreLibraryDesugaring(libs.androidx.desugar)
 }

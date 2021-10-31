@@ -9,5 +9,5 @@ java {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${versions.lang.kotlin}")
+    implementation(libs.kotlin.stdlib)
 }

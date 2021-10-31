@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    compileSdk = versions.project.targetSdk
+    compileSdk = libs.versions.app.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = versions.project.minSdk
-        targetSdk = versions.project.targetSdk
+        minSdk = libs.versions.app.minSdk.get().toInt()
+        targetSdk = libs.versions.app.targetSdk.get().toInt()
     }
 
     buildTypes {
@@ -38,12 +38,11 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-        useIR = true
     }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.lang.kotlin}")
-    implementation("io.insert-koin:koin-core:${versions.di.koin}")
-    implementation("io.insert-koin:koin-android:${versions.di.koin}")
+    implementation(libs.koin.android)
+    implementation(libs.koin.core)
+    implementation(libs.kotlin.stdlib.jdk7)
 }

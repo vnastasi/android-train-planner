@@ -4,6 +4,7 @@ plugins {
 
 buildscript {
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
         maven {
@@ -11,22 +12,17 @@ buildscript {
         }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:${versions.project.agp}")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.lang.kotlin}")
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${versions.androidx.navigation}")
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath("com.android.tools.build:gradle:7.0.3")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.core.get()}")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${libs.versions.androidx.navigation.get()}")
     }
 }
 
 allprojects {
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
-    }
-
-    configurations.all {
-        resolutionStrategy.force("org.objenesis:objenesis:2.6")
     }
 }
 
@@ -39,14 +35,10 @@ tasks.register("codeCoverageUnitTests", JacocoReport::class) {
     dependsOn(modules { it.tasks.findByName("testDebugUnitTest") })
 
     reports {
-        csv.apply {
-            isEnabled = false
-        }
-        xml.apply {
-            isEnabled = false
-        }
+        csv.required.set(false)
+        xml.required.set(false)
         html.apply {
-            isEnabled = true
+            required.set(true)
             outputLocation.set(buildDir.resolve("reports/codeCoverage/unitTests"))
         }
     }
@@ -70,14 +62,10 @@ tasks.register("codeCoverageAll", JacocoReport::class) {
     )
 
     reports {
-        csv.apply {
-            isEnabled = false
-        }
-        xml.apply {
-            isEnabled = false
-        }
+        csv.required.set(false)
+        xml.required.set(false)
         html.apply {
-            isEnabled = true
+            required.set(true)
             outputLocation.set(buildDir.resolve("reports/codeCoverage/all"))
         }
     }

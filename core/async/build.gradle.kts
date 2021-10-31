@@ -10,6 +10,6 @@ java {
 
 dependencies {
     implementation(project(":core:exception"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${versions.lang.kotlin}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.lang.coroutines}")
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.kotlin.stdlib)
 }
