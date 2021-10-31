@@ -18,5 +18,5 @@ dependencies {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-    kotlinOptions.languageVersion = "1.4"
+    kotlinOptions.languageVersion = "1.5"
 }

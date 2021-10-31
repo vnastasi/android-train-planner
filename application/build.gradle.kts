@@ -77,7 +77,6 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-        useIR = true
     }
 
     sourceSets {
@@ -104,8 +103,8 @@ android {
                     includeEngines("junit-jupiter")
                 }
                 options.reports {
-                    junitXml.isEnabled = false
-                    html.isEnabled = true
+                    junitXml.required.set(false)
+                    html.required.set(true)
                 }
             }
         }
@@ -189,5 +188,5 @@ dependencies {
 
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-    kotlinOptions.languageVersion = "1.4"
+    kotlinOptions.languageVersion = "1.5"
 }

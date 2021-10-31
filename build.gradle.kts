@@ -4,6 +4,7 @@ plugins {
 
 buildscript {
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
         maven {
@@ -21,6 +22,7 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
     }
@@ -39,14 +41,10 @@ tasks.register("codeCoverageUnitTests", JacocoReport::class) {
     dependsOn(modules { it.tasks.findByName("testDebugUnitTest") })
 
     reports {
-        csv.apply {
-            isEnabled = false
-        }
-        xml.apply {
-            isEnabled = false
-        }
+        csv.required.set(false)
+        xml.required.set(false)
         html.apply {
-            isEnabled = true
+            required.set(true)
             outputLocation.set(buildDir.resolve("reports/codeCoverage/unitTests"))
         }
     }
@@ -70,14 +68,10 @@ tasks.register("codeCoverageAll", JacocoReport::class) {
     )
 
     reports {
-        csv.apply {
-            isEnabled = false
-        }
-        xml.apply {
-            isEnabled = false
-        }
+        csv.required.set(false)
+        xml.required.set(false)
         html.apply {
-            isEnabled = true
+            required.set(true)
             outputLocation.set(buildDir.resolve("reports/codeCoverage/all"))
         }
     }
