@@ -18,12 +18,12 @@ plugins {
 }
 
 android {
-    compileSdk = versions.project.targetSdk
+    compileSdk = libs.versions.app.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "md.vnastasi.trainplanner"
-        minSdk = versions.project.minSdk
-        targetSdk = versions.project.targetSdk
+        minSdk = libs.versions.app.minSdk.get().toInt()
+        targetSdk = libs.versions.app.targetSdk.get().toInt()
         versionCode = 1
         versionName = "0.0.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdk = versions.project.targetSdk
+    compileSdk = libs.versions.app.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = versions.project.minSdk
-        targetSdk = versions.project.targetSdk
+        minSdk = libs.versions.app.minSdk.get().toInt()
+        targetSdk = libs.versions.app.targetSdk.get().toInt()
     }
 
     buildTypes {
