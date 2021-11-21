@@ -14,10 +14,13 @@ class TestCoroutineScopeExtension : BeforeEachCallback, AfterEachCallback, Param
         DispatcherRegistry.overrideMain(dispatcher)
         DispatcherRegistry.overrideDefault(dispatcher)
         DispatcherRegistry.overrideIO(dispatcher)
+        Thread.setDefaultUncaughtExceptionHandler { _, exception -> throw exception }
     }
 
     override fun afterEach(context: ExtensionContext?) {
+        dispatcher.cleanupTestCoroutines()
         DispatcherRegistry.reset()
+        Thread.setDefaultUncaughtExceptionHandler(null)
     }
 
     @Suppress("NewApi")
