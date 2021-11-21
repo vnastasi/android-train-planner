@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import md.vnastasi.trainplanner.R
@@ -48,7 +48,7 @@ class LoginFragment(private val viewModelProvider: LoginViewModel.Provider) : Fr
         when (viewState) {
             is LoginUiStateModel.Pending -> Unit
             is LoginUiStateModel.AuthenticationInProgress -> Unit
-            is LoginUiStateModel.Authenticated -> requireParentFragment().findNavController().navigate(R.id.action_login_to_dashboard)
+            is LoginUiStateModel.Authenticated -> requireView().findNavController().navigate(R.id.action_login_to_dashboard)
             is LoginUiStateModel.AuthenticationFailed -> renderErrors(viewState.reason)
         }
     }
