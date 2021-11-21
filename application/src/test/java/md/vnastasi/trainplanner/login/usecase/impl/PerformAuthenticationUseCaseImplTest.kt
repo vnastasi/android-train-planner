@@ -1,4 +1,4 @@
-package md.vnastasi.trainplanner.login.usecase
+package md.vnastasi.trainplanner.login.usecase.impl
 
 import assertk.all
 import assertk.assertions.hasSize
@@ -15,6 +15,7 @@ import md.vnastasi.trainplanner.exception.ApplicationException
 import md.vnastasi.trainplanner.login.repository.AuthenticationFailureReason
 import md.vnastasi.trainplanner.login.repository.AuthenticationRepository
 import md.vnastasi.trainplanner.login.repository.CredentialsStorageRepository
+import md.vnastasi.trainplanner.login.usecase.EncodeCredentialsUseCase
 import md.vnastasi.trainplanner.test.core.consumingFow
 import md.vnastasi.trainplanner.test.core.hasData
 import md.vnastasi.trainplanner.test.core.hasItemAtPosition
@@ -27,13 +28,13 @@ private const val STUB_PASSWORD = "1234567890"
 private const val STUB_CREDENTIALS = "ERESTDTFYHM"
 
 @ExtendWith(TestCoroutineScopeExtension::class)
-internal class PerformAuthenticationUseCaseTest {
+internal class PerformAuthenticationUseCaseImplTest {
 
     private val mockAuthenticationRepository = mock<AuthenticationRepository>()
     private val mockCredentialsStorageRepository = mock<CredentialsStorageRepository>()
     private val mockEncodeCredentialsUseCase = mock<EncodeCredentialsUseCase>()
 
-    private val useCase = PerformAuthenticationUseCase(mockAuthenticationRepository, mockCredentialsStorageRepository, mockEncodeCredentialsUseCase)
+    private val useCase = PerformAuthenticationUseCaseImpl(mockAuthenticationRepository, mockCredentialsStorageRepository, mockEncodeCredentialsUseCase)
 
     @Test
     @DisplayName(

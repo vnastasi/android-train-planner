@@ -7,7 +7,9 @@ import kotlinx.coroutines.launch
 import md.vnastasi.trainplanner.async.AsyncResult
 import md.vnastasi.trainplanner.async.DispatcherRegistry
 import md.vnastasi.trainplanner.login.usecase.PerformAuthenticationUseCase
+import md.vnastasi.trainplanner.open.OpenForTesting
 
+@OpenForTesting
 class LoginViewModel(
     private val performAuthenticationUseCase: PerformAuthenticationUseCase
 ) : ViewModel() {
@@ -31,6 +33,7 @@ class LoginViewModel(
         }
     }
 
+    @OpenForTesting
     class Provider(
         private val performAuthenticationUseCase: PerformAuthenticationUseCase
     ) {

@@ -21,6 +21,7 @@ inline fun <reified VM : ViewModel> Fragment.providingActivityViewModels(
     }
 )
 
+@MainThread
 inline fun <reified VM : ViewModel> Fragment.providingViewModels(
     crossinline provider: (SavedStateHandle) -> VM
 ): Lazy<VM> = createViewModelLazy(

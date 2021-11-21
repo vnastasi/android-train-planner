@@ -11,10 +11,10 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.kotlin.plugin.allopen") version libs.versions.kotlin.core.get()
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-android")
     id("jacoco")
-    alias(libs.plugins.kotlin.allopen)
 }
 
 android {
@@ -112,7 +112,7 @@ android {
 }
 
 allOpen {
-    annotation("md.vnastasi.trainplanner.core.Open")
+    annotation("md.vnastasi.trainplanner.open.Open")
 }
 
 dependencies {
@@ -160,9 +160,10 @@ dependencies {
         exclude(group = "org.mockito", module = "mockito-inline")
     }
     androidTestImplementation(libs.mockito.android)
+    androidTestImplementation(libs.mockito.kotlin)
     androidTestImplementation(libs.bundles.androidx.espresso)
     androidTestImplementation(libs.bundles.androidx.test)
-    androidTestImplementation(libs.bundles.mockito)
+    //androidTestImplementation(libs.bundles.mockito)
 }
 
 tasks.withType<KotlinCompile>().configureEach {
