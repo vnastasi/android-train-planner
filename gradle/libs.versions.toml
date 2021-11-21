@@ -39,6 +39,7 @@ mockito-kotlin = "2.2.0"
 okhttp = "4.9.1"
 retrofit = "2.9.0"
 retrofit-kotlinxserial = "0.8.0"
+turbine = "0.7.0"
 
 
 [libraries]
@@ -110,6 +111,7 @@ mockito-android = { group = "org.mockito", name = "mockito-android", version.ref
 mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
 mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref = "mockito" }
 mockito-kotlin = { group = "com.nhaarman.mockitokotlin2", name = "mockito-kotlin", version.ref = "mockito-kotlin" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
 
 [bundles]
