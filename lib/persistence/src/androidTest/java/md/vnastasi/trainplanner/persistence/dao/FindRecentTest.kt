@@ -1,14 +1,14 @@
 package md.vnastasi.trainplanner.persistence.dao
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import app.cash.turbine.test
+import assertk.assertThat
 import assertk.assertions.containsExactly
 import assertk.assertions.isEmpty
 import kotlinx.coroutines.runBlocking
 import md.vnastasi.trainplanner.domain.SampleStations
 import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
 import md.vnastasi.trainplanner.persistence.util.DatabaseRule
-import md.vnastasi.trainplanner.test.core.assertThatFlow
-import md.vnastasi.trainplanner.test.core.hasData
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,9 +25,10 @@ internal class FindRecentTest {
         SampleStations.DEN_BOSCH.copy(lastUsed = null).toStationEntity().also { databaseRule.stationDao.insert(it) }
         SampleStations.AMSTERDAM_CENTRAL.copy(lastUsed = null).toStationEntity().also { databaseRule.stationDao.insert(it) }
 
-        assertThatFlow { databaseRule.stationDao.findRecent(10) }
-            .hasData()
-            .isEmpty()
+        databaseRule.stationDao.findRecent(10).test {
+            assertThat(awaitItem()).isEmpty()
+            cancelAndConsumeRemainingEvents()
+        }
     }
 
     @Test
@@ -35,9 +36,10 @@ internal class FindRecentTest {
         SampleStations.DEN_BOSCH.copy(lastUsed = Instant.now(), isFavourite = true).toStationEntity().also { databaseRule.stationDao.insert(it) }
         SampleStations.AMSTERDAM_CENTRAL.copy(lastUsed = Instant.now(), isFavourite = true).toStationEntity().also { databaseRule.stationDao.insert(it) }
 
-        assertThatFlow { databaseRule.stationDao.findRecent(10) }
-            .hasData()
-            .isEmpty()
+        databaseRule.stationDao.findRecent(10).test {
+            assertThat(awaitItem()).isEmpty()
+            cancelAndConsumeRemainingEvents()
+        }
     }
 
     @Test
@@ -48,8 +50,9 @@ internal class FindRecentTest {
         databaseRule.stationDao.insert(station1)
         databaseRule.stationDao.insert(station2)
 
-        assertThatFlow { databaseRule.stationDao.findRecent(1) }
-            .hasData()
-            .containsExactly(station2)
+        databaseRule.stationDao.findRecent(1).test {
+            assertThat(awaitItem()).containsExactly(station2)
+            cancelAndConsumeRemainingEvents()
+        }
     }
 }

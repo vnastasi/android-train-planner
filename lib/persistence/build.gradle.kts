@@ -83,6 +83,7 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.kotlin.reflect)
+    testImplementation(libs.turbine)
     testImplementation(libs.bundles.mockito)
 
     testRuntimeOnly(libs.junit.jupiter.engine)
@@ -93,6 +94,7 @@ dependencies {
     androidTestImplementation(libs.androidx.room.test)
     androidTestImplementation(libs.junit.legacy)
     androidTestImplementation(libs.kotlin.reflect)
+    androidTestImplementation(libs.turbine)
     androidTestImplementation(libs.bundles.androidx.test)
 }
 
