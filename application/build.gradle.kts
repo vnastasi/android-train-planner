@@ -150,6 +150,7 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.kotlin.reflect)
+    testImplementation(libs.turbine)
     testImplementation(libs.bundles.mockito)
 
     testRuntimeOnly(libs.junit.jupiter.engine)
