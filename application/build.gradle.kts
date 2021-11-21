@@ -163,7 +163,6 @@ dependencies {
     androidTestImplementation(libs.mockito.kotlin)
     androidTestImplementation(libs.bundles.androidx.espresso)
     androidTestImplementation(libs.bundles.androidx.test)
-    //androidTestImplementation(libs.bundles.mockito)
 }
 
 tasks.withType<KotlinCompile>().configureEach {
