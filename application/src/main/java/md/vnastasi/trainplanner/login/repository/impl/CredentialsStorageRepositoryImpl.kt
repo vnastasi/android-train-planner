@@ -1,4 +1,4 @@
-package md.vnastasi.trainplanner.login.repository
+package md.vnastasi.trainplanner.login.repository.impl
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -6,8 +6,9 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import md.vnastasi.trainplanner.login.repository.CredentialsStorageRepository
 
-class CredentialsStorageRepositoryImpl(
+internal class CredentialsStorageRepositoryImpl(
     private val dataStore: DataStore<Preferences>
 ) : CredentialsStorageRepository {
 

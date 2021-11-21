@@ -10,8 +10,8 @@ import md.vnastasi.trainplanner.async.DispatcherRegistry
 import md.vnastasi.trainplanner.login.repository.AuthenticationRepository
 import md.vnastasi.trainplanner.login.repository.CredentialsStorageRepository
 import md.vnastasi.trainplanner.login.repository.CredentialsStorageRepository.Companion.DATA_STORE_NAME
-import md.vnastasi.trainplanner.login.repository.CredentialsStorageRepositoryImpl
-import md.vnastasi.trainplanner.login.repository.LocalAuthenticationRepositoryImpl
+import md.vnastasi.trainplanner.login.repository.impl.CredentialsStorageRepositoryImpl
+import md.vnastasi.trainplanner.login.repository.impl.LocalAuthenticationRepositoryImpl
 import md.vnastasi.trainplanner.login.ui.LoginViewModel
 import md.vnastasi.trainplanner.login.usecase.EncodeCredentialsUseCase
 import md.vnastasi.trainplanner.login.usecase.PerformAuthenticationUseCase

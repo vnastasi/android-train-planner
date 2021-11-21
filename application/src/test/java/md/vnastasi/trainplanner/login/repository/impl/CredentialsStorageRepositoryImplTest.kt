@@ -1,4 +1,4 @@
-package md.vnastasi.trainplanner.login.repository
+package md.vnastasi.trainplanner.login.repository.impl
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

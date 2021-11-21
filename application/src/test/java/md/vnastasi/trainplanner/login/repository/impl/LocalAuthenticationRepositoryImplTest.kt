@@ -1,10 +1,11 @@
-package md.vnastasi.trainplanner.login.repository
+package md.vnastasi.trainplanner.login.repository.impl
 
 import assertk.assertThat
 import assertk.assertions.*
 import kotlinx.coroutines.test.runBlockingTest
 import md.vnastasi.trainplanner.BuildConfig
 import md.vnastasi.trainplanner.exception.ApplicationException
+import md.vnastasi.trainplanner.login.repository.impl.LocalAuthenticationRepositoryImpl
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 

@@ -1,10 +1,12 @@
-package md.vnastasi.trainplanner.login.repository
+package md.vnastasi.trainplanner.login.repository.impl
 
 import kotlinx.coroutines.delay
 import md.vnastasi.trainplanner.BuildConfig
 import md.vnastasi.trainplanner.exception.ApplicationException
+import md.vnastasi.trainplanner.login.repository.AuthenticationFailureReason
+import md.vnastasi.trainplanner.login.repository.AuthenticationRepository
 
-class LocalAuthenticationRepositoryImpl : AuthenticationRepository {
+internal class LocalAuthenticationRepositoryImpl : AuthenticationRepository {
 
     override suspend fun authenticate(userName: String, password: String) {
         delay(1000L) // Simulate network request
