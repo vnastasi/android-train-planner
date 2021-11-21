@@ -1,14 +1,14 @@
 package md.vnastasi.trainplanner.persistence.dao
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import app.cash.turbine.test
+import assertk.assertThat
 import assertk.assertions.containsExactly
 import kotlinx.coroutines.runBlocking
 import md.vnastasi.trainplanner.domain.SampleStations
 import md.vnastasi.trainplanner.persistence.client.impl.toStationEntity
 import md.vnastasi.trainplanner.persistence.domain.station.EmbeddedStationType
 import md.vnastasi.trainplanner.persistence.util.DatabaseRule
-import md.vnastasi.trainplanner.test.core.assertThatFlow
-import md.vnastasi.trainplanner.test.core.hasData
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,8 +26,9 @@ internal class UpdateTest {
 
         databaseRule.stationDao.update(newStation)
 
-        assertThatFlow { databaseRule.stationDao.findBySearchQuery("de vink") }
-            .hasData()
-            .containsExactly(newStation)
+        databaseRule.stationDao.findBySearchQuery("de vink").test {
+            assertThat(awaitItem()).containsExactly(newStation)
+            cancelAndConsumeRemainingEvents()
+        }
     }
 }

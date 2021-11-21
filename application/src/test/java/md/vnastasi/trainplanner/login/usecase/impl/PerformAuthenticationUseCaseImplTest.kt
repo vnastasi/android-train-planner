@@ -1,7 +1,7 @@
 package md.vnastasi.trainplanner.login.usecase.impl
 
-import assertk.all
-import assertk.assertions.hasSize
+import app.cash.turbine.test
+import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.doReturn
@@ -16,9 +16,6 @@ import md.vnastasi.trainplanner.login.repository.AuthenticationFailureReason
 import md.vnastasi.trainplanner.login.repository.AuthenticationRepository
 import md.vnastasi.trainplanner.login.repository.CredentialsStorageRepository
 import md.vnastasi.trainplanner.login.usecase.EncodeCredentialsUseCase
-import md.vnastasi.trainplanner.test.core.consumingFow
-import md.vnastasi.trainplanner.test.core.hasData
-import md.vnastasi.trainplanner.test.core.hasItemAtPosition
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -38,7 +35,7 @@ internal class PerformAuthenticationUseCaseImplTest {
 
     @Test
     @DisplayName(
-        """
+            """
         Given authentication fails with 'INVALID_CREDENTIALS'
         When performing authentication
         The expect a failure with reason 'INVALID_CREDENTIALS'
@@ -48,18 +45,16 @@ internal class PerformAuthenticationUseCaseImplTest {
         val exception = ApplicationException(AuthenticationFailureReason.INVALID_CREDENTIALS)
         whenever(mockAuthenticationRepository.authenticate(STUB_USER_NAME, STUB_PASSWORD)).doAnswer { throw exception }
 
-        consumingFow(limit = 2) { useCase.execute(STUB_USER_NAME, STUB_PASSWORD) }
-            .hasData()
-            .all {
-                hasSize(2)
-                hasItemAtPosition(0).isEqualTo(AsyncResult.Loading)
-                hasItemAtPosition(1).isEqualTo(AsyncResult.Failure(exception))
-            }
+        useCase.execute(STUB_USER_NAME, STUB_PASSWORD).test {
+            assertThat(awaitItem()).isEqualTo(AsyncResult.Loading)
+            assertThat(awaitItem()).isEqualTo(AsyncResult.Failure(exception))
+            awaitComplete()
+        }
     }
 
     @Test
     @DisplayName(
-        """
+            """
         Given authentication succeeds
         When performing authentication
         The expect success
@@ -70,12 +65,10 @@ internal class PerformAuthenticationUseCaseImplTest {
         whenever(mockEncodeCredentialsUseCase.execute(STUB_USER_NAME, STUB_PASSWORD)).doReturn(STUB_CREDENTIALS)
         whenever(mockCredentialsStorageRepository.store(STUB_CREDENTIALS)).doReturn(Unit)
 
-        consumingFow(limit = 2) { useCase.execute(STUB_USER_NAME, STUB_PASSWORD) }
-            .hasData()
-            .all {
-                hasSize(2)
-                hasItemAtPosition(0).isEqualTo(AsyncResult.Loading)
-                hasItemAtPosition(1).isEqualTo(AsyncResult.Success(Unit))
-            }
+        useCase.execute(STUB_USER_NAME, STUB_PASSWORD).test {
+            assertThat(awaitItem()).isEqualTo(AsyncResult.Loading)
+            assertThat(awaitItem()).isEqualTo(AsyncResult.Success(Unit))
+            awaitComplete()
+        }
     }
 }

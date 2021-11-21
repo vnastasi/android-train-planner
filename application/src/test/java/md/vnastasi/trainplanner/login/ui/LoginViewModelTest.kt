@@ -1,7 +1,7 @@
 package md.vnastasi.trainplanner.login.ui
 
-import assertk.all
-import assertk.assertions.hasSize
+import app.cash.turbine.test
+import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
@@ -12,10 +12,7 @@ import md.vnastasi.trainplanner.async.TestCoroutineScopeExtension
 import md.vnastasi.trainplanner.exception.ApplicationException
 import md.vnastasi.trainplanner.login.repository.AuthenticationFailureReason
 import md.vnastasi.trainplanner.login.usecase.PerformAuthenticationUseCase
-import md.vnastasi.trainplanner.test.core.consumingFow
 import md.vnastasi.trainplanner.test.core.doReturnFlowOf
-import md.vnastasi.trainplanner.test.core.hasData
-import md.vnastasi.trainplanner.test.core.hasItemAtPosition
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -33,27 +30,27 @@ internal class LoginViewModelTest {
     internal fun testAuthenticationFailure(scope: TestCoroutineScope) = scope.runBlockingTest {
         whenever(mockPerformAuthenticationUseCase.execute(USERNAME, PASSWORD)).doReturnFlowOf(AsyncResult.Failure(ApplicationException(AuthenticationFailureReason.INVALID_CREDENTIALS)))
 
-        viewModel.onLogin(USERNAME, PASSWORD)
+        viewModel.viewState.test {
+            viewModel.onLogin(USERNAME, PASSWORD)
 
-        consumingFow() { viewModel.viewState }
-            .hasData()
-            .all {
-                hasSize(1)
-                hasItemAtPosition(0).isEqualTo(LoginUiStateModel.AuthenticationFailed(AuthenticationFailureReason.INVALID_CREDENTIALS))
-            }
+            assertThat(awaitItem()).isEqualTo(LoginUiStateModel.Pending)
+            assertThat(awaitItem()).isEqualTo(LoginUiStateModel.AuthenticationFailed(AuthenticationFailureReason.INVALID_CREDENTIALS))
+
+            cancelAndConsumeRemainingEvents()
+        }
     }
 
     @Test
     internal fun testAuthenticationSuccess(scope: TestCoroutineScope) = scope.runBlockingTest {
         whenever(mockPerformAuthenticationUseCase.execute(USERNAME, PASSWORD)).doReturnFlowOf(AsyncResult.Success(Unit))
 
-        viewModel.onLogin(USERNAME, PASSWORD)
+        viewModel.viewState.test {
+            viewModel.onLogin(USERNAME, PASSWORD)
 
-        consumingFow { viewModel.viewState }
-            .hasData()
-            .all {
-                hasSize(1)
-                hasItemAtPosition(0).isEqualTo(LoginUiStateModel.Authenticated)
-            }
+            assertThat(awaitItem()).isEqualTo(LoginUiStateModel.Pending)
+            assertThat(awaitItem()).isEqualTo(LoginUiStateModel.Authenticated)
+
+            cancelAndConsumeRemainingEvents()
+        }
     }
 }

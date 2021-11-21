@@ -75,13 +75,13 @@ dependencies {
 
     coreLibraryDesugaring(libs.androidx.desugar)
 
-    testImplementation(project(":test:core-test"))
     testImplementation(libs.assertk)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.koin.test)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.kotlin.reflect)
     testImplementation(libs.okhttp.server)
+    testImplementation(libs.turbine)
     testImplementation(libs.bundles.mockito)
 
     testRuntimeOnly(libs.junit.jupiter.engine)

@@ -1,5 +1,6 @@
 package md.vnastasi.trainplanner.persistence.client.impl
 
+import app.cash.turbine.test
 import assertk.assertThat
 import assertk.assertions.containsExactly
 import assertk.assertions.isSuccess
@@ -8,12 +9,9 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verifyBlocking
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
-import md.vnastasi.trainplanner.domain.SampleStations
 import md.vnastasi.trainplanner.domain.createStation
 import md.vnastasi.trainplanner.persistence.dao.StationDao
-import md.vnastasi.trainplanner.test.core.assertThatFlow
 import md.vnastasi.trainplanner.test.core.doReturnFlowOf
-import md.vnastasi.trainplanner.test.core.hasData
 import org.junit.jupiter.api.Test
 
 internal class StationDbClientImplTest {
@@ -29,22 +27,23 @@ internal class StationDbClientImplTest {
 
         whenever(mockStationDao.findBySearchQuery(query)).doReturnFlowOf(listOf(station.toStationEntity()))
 
-        assertThatFlow { stationDbClient.findBySearchQuery(query) }
-            .hasData()
-            .containsExactly(station)
+        stationDbClient.findBySearchQuery(query).test {
+            assertThat(awaitItem()).containsExactly(station)
+            awaitComplete()
+        }
     }
 
     @Test
     internal fun testFindFavourites() = runBlocking {
-        SampleStations
         val limit = 10
         val station = createStation()
 
         whenever(mockStationDao.findFavourites(limit)).doReturnFlowOf(listOf(station.toStationEntity()))
 
-        assertThatFlow { stationDbClient.findFavourites(limit) }
-            .hasData()
-            .containsExactly(station)
+        stationDbClient.findFavourites(limit).test {
+            assertThat(awaitItem()).containsExactly(station)
+            awaitComplete()
+        }
     }
 
     @Test
@@ -54,9 +53,10 @@ internal class StationDbClientImplTest {
 
         whenever(mockStationDao.findRecent(limit)).doReturnFlowOf(listOf(station.toStationEntity()))
 
-        assertThatFlow { stationDbClient.findRecent(limit) }
-            .hasData()
-            .containsExactly(station)
+        stationDbClient.findRecent(limit).test {
+            assertThat(awaitItem()).containsExactly(station)
+            awaitComplete()
+        }
     }
 
     @Test
