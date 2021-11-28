@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import kotlinx.coroutines.flow.collect
 import md.vnastasi.trainplanner.R
+import md.vnastasi.trainplanner.async.Event
 import md.vnastasi.trainplanner.databinding.FragmentSplashBinding
+import md.vnastasi.trainplanner.splash.nav.SplashNavigationRoute
 import md.vnastasi.trainplanner.ui.providingViewModels
-import md.vnastasi.trainplanner.ui.whileStarted
 
 class SplashFragment(
     private val viewModelProvider: SplashViewModel.Provider
@@ -23,19 +25,22 @@ class SplashFragment(
         FragmentSplashBinding.inflate(layoutInflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        whileStarted {
-            viewModel.authenticationState.collect(::onAuthenticationStateChanged)
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.navigationRoute.collect(::onNavigationRouteChanged)
         }
     }
 
-    private fun onAuthenticationStateChanged(state: AuthenticationState) {
+    private fun onNavigationRouteChanged(event: Event<SplashNavigationRoute>) {
+        val route = event.consume() ?: return
+
         val navigationOptions = navOptions {
             popUpTo(R.id.splash) { inclusive = true }
         }
-        when (state) {
-            is AuthenticationState.Authenticated -> findNavController().navigate(SplashFragmentDirections.actionSplashToDashboard(), navigationOptions)
-            is AuthenticationState.Anonymous -> findNavController().navigate(SplashFragmentDirections.actionSplashToLogin(), navigationOptions)
-            else -> Unit
+        val action = when (route) {
+            is SplashNavigationRoute.Dashboard -> SplashFragmentDirections.actionSplashToDashboard()
+            is SplashNavigationRoute.Login -> SplashFragmentDirections.actionSplashToLogin()
         }
+
+        findNavController().navigate(action, navigationOptions)
     }
 }
