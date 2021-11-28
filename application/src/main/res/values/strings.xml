@@ -21,4 +21,6 @@
     <string name="alert_confirm_exit_yes">Yes</string>
     <string name="alert_confirm_exit_no">No</string>
 
+    <string name="toast_message_login_success">Login Successful!</string>
+
 </resources>
