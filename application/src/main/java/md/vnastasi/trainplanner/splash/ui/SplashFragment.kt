@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import kotlinx.coroutines.flow.collect
 import md.vnastasi.trainplanner.R
 import md.vnastasi.trainplanner.databinding.FragmentSplashBinding
@@ -28,9 +29,12 @@ class SplashFragment(
     }
 
     private fun onAuthenticationStateChanged(state: AuthenticationState) {
+        val navigationOptions = navOptions {
+            popUpTo(R.id.splash) { inclusive = true }
+        }
         when (state) {
-            is AuthenticationState.Authenticated -> requireParentFragment().findNavController().navigate(R.id.action_splash_to_dashboard)
-            is AuthenticationState.Anonymous -> requireParentFragment().findNavController().navigate(R.id.action_splash_to_login)
+            is AuthenticationState.Authenticated -> findNavController().navigate(SplashFragmentDirections.actionSplashToDashboard(), navigationOptions)
+            is AuthenticationState.Anonymous -> findNavController().navigate(SplashFragmentDirections.actionSplashToLogin(), navigationOptions)
             else -> Unit
         }
     }
