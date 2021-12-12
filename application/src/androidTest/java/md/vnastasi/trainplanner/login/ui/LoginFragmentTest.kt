@@ -6,6 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.verify
 import md.vnastasi.trainplanner.R
+import md.vnastasi.trainplanner.login.nav.LoginNavigationRoute
 import md.vnastasi.trainplanner.login.repository.AuthenticationFailureReason
 import md.vnastasi.trainplanner.util.nav.replaceNavController
 import md.vnastasi.trainplanner.util.nav.verifyCurrentDestination
@@ -19,7 +20,7 @@ class LoginFragmentTest {
     @Test
     fun emptyUserNameFailureDisplaysErrorTextOnUserNameInput() {
         launchFragment().onFragment {
-            mockLoginViewModel.setViewState(LoginUiStateModel.AuthenticationFailed(AuthenticationFailureReason.EMPTY_USER_NAME))
+            mockLoginViewModel.setViewState(LoginViewState.AuthenticationFailed(AuthenticationFailureReason.EMPTY_USER_NAME))
         }
 
         loginScreen {
@@ -31,7 +32,7 @@ class LoginFragmentTest {
     @Test
     fun emptyPasswordFailureDisplaysErrorTextOnPasswordInput() {
         launchFragment().onFragment {
-            mockLoginViewModel.setViewState(LoginUiStateModel.AuthenticationFailed(AuthenticationFailureReason.EMPTY_PASSWORD))
+            mockLoginViewModel.setViewState(LoginViewState.AuthenticationFailed(AuthenticationFailureReason.EMPTY_PASSWORD))
         }
 
         loginScreen {
@@ -43,7 +44,7 @@ class LoginFragmentTest {
     @Test
     fun invalidCredentialsFailureDisplaysErrorTextOnPasswordInput() {
         launchFragment().onFragment {
-            mockLoginViewModel.setViewState(LoginUiStateModel.AuthenticationFailed(AuthenticationFailureReason.INVALID_CREDENTIALS))
+            mockLoginViewModel.setViewState(LoginViewState.AuthenticationFailed(AuthenticationFailureReason.INVALID_CREDENTIALS))
         }
 
         loginScreen {
@@ -72,8 +73,16 @@ class LoginFragmentTest {
 
     @Test
     fun successAuthenticationTriggersNavigationToDashboard() {
-        launchFragment().onFragment {
-            mockLoginViewModel.setViewState(LoginUiStateModel.Authenticated)
+        val fragmentScenario = launchFragment()
+
+        fragmentScenario.onFragment {
+            mockLoginViewModel.setViewState(LoginViewState.Authenticated)
+        }
+
+        verify(mockLoginViewModel.instance).navigateToDashboard()
+
+        fragmentScenario.onFragment {
+            mockLoginViewModel.expectNavigationRoute(LoginNavigationRoute.Dashboard)
         }
 
         navController.verifyCurrentDestination(R.id.dashboard)

@@ -16,4 +16,11 @@
     <string name="menu_item_map">Map</string>
     <string name="menu_item_disruptions">Disruptions</string>
 
+    <string name="alert_confirm_exit_title">Conform exit</string>
+    <string name="alert_confirm_exit_message">Are you sure you want to quit?</string>
+    <string name="alert_confirm_exit_yes">Yes</string>
+    <string name="alert_confirm_exit_no">No</string>
+
+    <string name="toast_message_login_success">Login Successful!</string>
+
 </resources>

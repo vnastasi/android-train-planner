@@ -2,30 +2,41 @@ package md.vnastasi.trainplanner.splash.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import md.vnastasi.trainplanner.async.DispatcherRegistry
+import md.vnastasi.trainplanner.async.*
+import md.vnastasi.trainplanner.open.OpenForTesting
+import md.vnastasi.trainplanner.splash.nav.SplashNavigationRoute
 import md.vnastasi.trainplanner.splash.usecase.CheckCredentialsUseCase
+import md.vnastasi.trainplanner.splash.usecase.impl.CheckCredentialsUseCaseImpl
 
+@OpenForTesting
 class SplashViewModel(
     private val checkCredentialsUseCase: CheckCredentialsUseCase
 ) : ViewModel() {
 
-    private val _authenticationState: MutableStateFlow<AuthenticationState> = MutableStateFlow(AuthenticationState.Pending)
-    val authenticationState: StateFlow<AuthenticationState> = _authenticationState
+    private val _navigationRoute = MutableSharedFlow<Event<SplashNavigationRoute>>(replay = 1, extraBufferCapacity = 0, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val navigationRoute: Flow<Event<SplashNavigationRoute>> = _navigationRoute.asSharedFlow().distinctUntilChanged()
 
     init {
+        checkAuthenticationStatus()
+    }
+
+    private fun checkAuthenticationStatus() {
         viewModelScope.launch(DispatcherRegistry.Main) {
-            _authenticationState.value = withContext(DispatcherRegistry.Default) {
-                delay(5000L)
-                if (checkCredentialsUseCase.execute()) AuthenticationState.Authenticated else AuthenticationState.Anonymous
+            val isAuthenticated = withContext(DispatcherRegistry.Default) {
+                delay(2000L)
+                checkCredentialsUseCase.execute()
             }
+            val route = if (isAuthenticated) SplashNavigationRoute.Dashboard else SplashNavigationRoute.Login
+            _navigationRoute.emit(Event(route))
         }
     }
 
+    @OpenForTesting
     class Provider(
         private val checkCredentialsUseCase: CheckCredentialsUseCase
     ) {

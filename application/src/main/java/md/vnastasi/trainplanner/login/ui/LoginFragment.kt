@@ -4,18 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import md.vnastasi.trainplanner.R
+import md.vnastasi.trainplanner.async.Event
 import md.vnastasi.trainplanner.databinding.FragmentLoginBinding
 import md.vnastasi.trainplanner.exception.FailureReason
+import md.vnastasi.trainplanner.login.nav.LoginNavigationRoute
 import md.vnastasi.trainplanner.login.repository.AuthenticationFailureReason
 import md.vnastasi.trainplanner.ui.providingViewModels
-import md.vnastasi.trainplanner.ui.whileStarted
 
-class LoginFragment(private val viewModelProvider: LoginViewModel.Provider) : Fragment() {
+class LoginFragment(
+    private val viewModelProvider: LoginViewModel.Provider
+) : Fragment() {
 
     private var _viewBinding: FragmentLoginBinding? = null
     private val viewBinding: FragmentLoginBinding get() = requireNotNull(_viewBinding)
@@ -34,8 +43,14 @@ class LoginFragment(private val viewModelProvider: LoginViewModel.Provider) : Fr
             )
         }
 
-        whileStarted {
-            viewModel.viewState.collect(::onViewStateChanged)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.viewState.collect(::onViewStateChanged)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.navigationRoute.collect(::onNavigationRouteChanged)
         }
     }
 
@@ -44,13 +59,28 @@ class LoginFragment(private val viewModelProvider: LoginViewModel.Provider) : Fr
         viewBinding.inputPassword.error = null
     }
 
-    private fun onViewStateChanged(viewState: LoginUiStateModel) {
+    private fun onViewStateChanged(viewState: LoginViewState) {
         when (viewState) {
-            is LoginUiStateModel.Pending -> Unit
-            is LoginUiStateModel.AuthenticationInProgress -> Unit
-            is LoginUiStateModel.Authenticated -> requireView().findNavController().navigate(R.id.action_login_to_dashboard)
-            is LoginUiStateModel.AuthenticationFailed -> renderErrors(viewState.reason)
+            is LoginViewState.Authenticated -> {
+                Toast.makeText(requireContext(), R.string.toast_message_login_success, Toast.LENGTH_LONG).show()
+                viewModel.navigateToDashboard()
+            }
+            is LoginViewState.AuthenticationFailed -> renderErrors(viewState.reason)
+            else -> Unit
         }
+    }
+
+    private fun onNavigationRouteChanged(event: Event<LoginNavigationRoute>) {
+        val route = event.consume() ?: return
+
+        val navigationOptions = navOptions {
+            popUpTo(R.id.login) { inclusive = true }
+        }
+        val action = when (route) {
+            is LoginNavigationRoute.Dashboard -> LoginFragmentDirections.actionLoginToDashboard()
+        }
+
+        findNavController().navigate(action, navigationOptions)
     }
 
     private fun renderErrors(failureReason: FailureReason) {
