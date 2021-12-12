@@ -8,9 +8,12 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import md.vnastasi.trainplanner.async.*
+import md.vnastasi.trainplanner.open.OpenForTesting
 import md.vnastasi.trainplanner.splash.nav.SplashNavigationRoute
 import md.vnastasi.trainplanner.splash.usecase.CheckCredentialsUseCase
+import md.vnastasi.trainplanner.splash.usecase.impl.CheckCredentialsUseCaseImpl
 
+@OpenForTesting
 class SplashViewModel(
     private val checkCredentialsUseCase: CheckCredentialsUseCase
 ) : ViewModel() {
@@ -33,6 +36,7 @@ class SplashViewModel(
         }
     }
 
+    @OpenForTesting
     class Provider(
         private val checkCredentialsUseCase: CheckCredentialsUseCase
     ) {

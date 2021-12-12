@@ -11,7 +11,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import md.vnastasi.trainplanner.async.Event
 import md.vnastasi.trainplanner.async.TestCoroutineScopeExtension
 import md.vnastasi.trainplanner.splash.nav.SplashNavigationRoute
-import md.vnastasi.trainplanner.splash.usecase.CheckCredentialsUseCase
+import md.vnastasi.trainplanner.splash.usecase.impl.CheckCredentialsUseCaseImpl
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -19,7 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(TestCoroutineScopeExtension::class)
 internal class SplashViewModelTest {
 
-    private val mockCheckCredentialsUseCase = mock<CheckCredentialsUseCase>()
+    private val mockCheckCredentialsUseCase = mock<CheckCredentialsUseCaseImpl>()
 
     private val viewModel by lazy(LazyThreadSafetyMode.NONE) { SplashViewModel(mockCheckCredentialsUseCase) }
 
