@@ -1,0 +1,27 @@
+[
+  {
+    "id": "6018812",
+    "title": "Almere-Zwolle",
+    "type": "DISRUPTION",
+    "period": {
+      "start": "2022-09-19T08:14:00.000Z",
+      "end": "2022-12-15T03:00:00.000Z"
+    },
+    "intervals": [
+      {
+        "period": {
+          "start": "2022-09-19T08:14:00.000Z",
+          "end": "2022-12-15T03:00:00.000Z"
+        },
+        "description": "Tussen Lelystad Centrum en Dronten rijden er geen treinen door een defecte bovenleiding.",
+        "cause": "Defecte bovenleiding",
+        "extraTravelTimeAdvice": null,
+        "alternativeTransportAdvice": "Er rijden bussen.",
+        "otherAdvices": [
+          "Maak gebruik van de omreisroutes. Plan uw reis kort voor vertrek."
+        ]
+      }
+    ],
+    "isActive": true
+  }
+]

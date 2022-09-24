@@ -7,10 +7,10 @@ import kotlinx.serialization.modules.contextual
 import md.vnastasi.trainplaner.di.ModuleDefinition
 import md.vnastasi.trainplanner.api.auth.AuthorizationInterceptor
 import md.vnastasi.trainplanner.api.auth.AuthorizationProvider
+import md.vnastasi.trainplanner.api.client.*
 import md.vnastasi.trainplanner.api.client.RawStationsApiClient
 import md.vnastasi.trainplanner.api.client.RawTimetableApiClient
-import md.vnastasi.trainplanner.api.client.StationsApiClient
-import md.vnastasi.trainplanner.api.client.TimetableApiClient
+import md.vnastasi.trainplanner.api.client.impl.DisruptionsApiClientImpl
 import md.vnastasi.trainplanner.api.client.impl.StationsApiClientImpl
 import md.vnastasi.trainplanner.api.client.impl.TimetableApiClientImpl
 import md.vnastasi.trainplanner.api.connect.ConnectivityCheckInterceptor
@@ -73,6 +73,10 @@ class ApiModuleDefinition(
 
         factory<TimetableApiClient> {
             TimetableApiClientImpl(get<Retrofit>().create(RawTimetableApiClient::class.java), get())
+        }
+
+        factory<DisruptionsApiClient> {
+            DisruptionsApiClientImpl(get<Retrofit>().create(RawDisruptionsApiClient::class.java), get())
         }
     }
 

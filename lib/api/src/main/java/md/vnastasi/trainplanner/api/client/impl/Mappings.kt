@@ -6,12 +6,20 @@ import md.vnastasi.trainplanner.api.domain.board.DepartureStatusWrapper
 import md.vnastasi.trainplanner.api.domain.board.IntermediateStationWrapper
 import md.vnastasi.trainplanner.api.domain.board.MessageTypeWrapper
 import md.vnastasi.trainplanner.api.domain.board.MessageWrapper
+import md.vnastasi.trainplanner.api.domain.disturbance.DisruptionWrapper
+import md.vnastasi.trainplanner.api.domain.disturbance.DisturbanceTypeWrapper
+import md.vnastasi.trainplanner.api.domain.disturbance.IntervalWrapper
+import md.vnastasi.trainplanner.api.domain.disturbance.PeriodWrapper
 import md.vnastasi.trainplanner.api.domain.station.CoordinatesWrapper
 import md.vnastasi.trainplanner.api.domain.station.DistanceAwareStationWrapper
 import md.vnastasi.trainplanner.api.domain.station.NameHolderWrapper
 import md.vnastasi.trainplanner.api.domain.station.StationTypeWrapper
 import md.vnastasi.trainplanner.api.domain.station.StationWrapper
 import md.vnastasi.trainplanner.domain.board.*
+import md.vnastasi.trainplanner.domain.disruption.Disruption
+import md.vnastasi.trainplanner.domain.disruption.DisruptionInterval
+import md.vnastasi.trainplanner.domain.disruption.DisturbanceType
+import md.vnastasi.trainplanner.domain.disruption.Period
 import md.vnastasi.trainplanner.domain.station.*
 
 internal fun CoordinatesWrapper.toCoordinates() = Coordinates(
@@ -120,4 +128,32 @@ internal fun ArrivalWrapper.toArrival() = Arrival(
         unit = unit.toTransportationUnit(),
         isCancelled = cancelled,
         messages = messages.map { it.toMessage() }
+)
+
+internal fun DisruptionWrapper.toDisruption() = Disruption(
+    id = this.id,
+    type = this.type.toDisturbanceType(),
+    title = this.title,
+    intervals = this.intervals.map(IntervalWrapper::toDisruptionInterval),
+    isActive = this.isActive
+)
+
+internal fun DisturbanceTypeWrapper.toDisturbanceType() = when (this) {
+    DisturbanceTypeWrapper.MAINTENANCE -> DisturbanceType.MAINTENANCE
+    DisturbanceTypeWrapper.DISRUPTION -> DisturbanceType.DISRUPTION
+    DisturbanceTypeWrapper.CALAMITY -> DisturbanceType.CALAMITY
+}
+
+internal fun IntervalWrapper.toDisruptionInterval() = DisruptionInterval(
+    period = this.period.toPeriod(),
+    description = this.description,
+    cause = this.cause,
+    extraTravelTimeAdvice = this.extraTravelTimeAdvice,
+    alternativeTransportAdvice = this.alternativeTransportAdvice,
+    otherAdvices = this.otherAdvices.toList()
+)
+
+internal fun PeriodWrapper.toPeriod() = Period(
+    start = this.start,
+    end = this.end
 )
