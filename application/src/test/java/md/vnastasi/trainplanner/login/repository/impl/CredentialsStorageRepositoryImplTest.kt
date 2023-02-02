@@ -14,6 +14,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import md.vnastasi.trainplanner.login.repository.CredentialsStorageRepository.Companion.KEY_CREDENTIALS
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -32,7 +33,7 @@ internal class CredentialsStorageRepositoryImplTest {
         Then expect true
     """
     )
-    internal fun testCredentialsStored() = runBlockingTest {
+    internal fun testCredentialsStored() = runTest {
         val preferencePair = stringPreferencesKey(KEY_CREDENTIALS) to "qwerty"
         whenever(mockDataStore.data).doReturn(flowOf(preferencesOf(preferencePair)))
 
@@ -49,7 +50,7 @@ internal class CredentialsStorageRepositoryImplTest {
         Then expect false
     """
     )
-    internal fun testCredentialsNotStored() = runBlockingTest {
+    internal fun testCredentialsNotStored() = runTest {
         whenever(mockDataStore.data).doReturn(flowOf(emptyPreferences()))
 
         assertThat { repository.isStored() }

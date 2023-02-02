@@ -38,6 +38,7 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
+        kotlinOptions.languageVersion = "1.8"
     }
 }
 

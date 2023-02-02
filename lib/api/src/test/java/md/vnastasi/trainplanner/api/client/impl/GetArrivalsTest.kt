@@ -5,6 +5,7 @@ import assertk.all
 import assertk.assertThat
 import assertk.assertions.*
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import md.vnastasi.trainplanner.api.client.TimetableApiClient
 import md.vnastasi.trainplanner.api.util.WebServerExtension
 import md.vnastasi.trainplanner.api.util.enqueueResponse
@@ -32,7 +33,7 @@ internal class GetArrivalsTest : KoinTest {
         Then expect 4th path segment to contain station code
     """
     )
-    internal fun testPathSegment(webServer: MockWebServer) = runBlocking {
+    internal fun testPathSegment(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_NOT_FOUND
         }
@@ -57,7 +58,7 @@ internal class GetArrivalsTest : KoinTest {
         Then expect an exception to be raised with code 'NS_SERVER_ERROR'
     """
     )
-    internal fun testNsServerError(webServer: MockWebServer) = runBlocking {
+    internal fun testNsServerError(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_INTERNAL_ERROR
             jsonBody = "ns_service_failure.json"
@@ -79,7 +80,7 @@ internal class GetArrivalsTest : KoinTest {
         Then expect an exception to be raised with code 'UNKNOWN_STATION'
     """
     )
-    internal fun testUnknownStation(webServer: MockWebServer) = runBlocking {
+    internal fun testUnknownStation(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_INTERNAL_ERROR
             jsonBody = "station_not_found.json"
@@ -100,7 +101,7 @@ internal class GetArrivalsTest : KoinTest {
         Then expect an exception to be raised with code 'NO_ARRIVALS_AVAILABLE'
     """
     )
-    internal fun testNoArrivals(webServer: MockWebServer) = runBlocking {
+    internal fun testNoArrivals(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_INTERNAL_ERROR
             jsonBody = "no_arrivals.json"
@@ -122,7 +123,7 @@ internal class GetArrivalsTest : KoinTest {
         Then expect a flow with empty list
     """
     )
-    internal fun testEmptyList(webServer: MockWebServer) = runBlocking {
+    internal fun testEmptyList(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_OK
             jsonBody = "empty_list.json"
@@ -142,7 +143,7 @@ internal class GetArrivalsTest : KoinTest {
         Then expect a flow with arrival list
     """
     )
-    internal fun testNonEmptyList(webServer: MockWebServer) = runBlocking {
+    internal fun testNonEmptyList(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_OK
             jsonBody = "arrivals.json"

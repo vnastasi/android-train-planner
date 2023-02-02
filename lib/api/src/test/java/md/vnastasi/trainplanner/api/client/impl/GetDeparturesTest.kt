@@ -5,6 +5,7 @@ import assertk.all
 import assertk.assertThat
 import assertk.assertions.*
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import md.vnastasi.trainplanner.api.client.TimetableApiClient
 import md.vnastasi.trainplanner.api.util.WebServerExtension
 import md.vnastasi.trainplanner.api.util.enqueueResponse
@@ -32,7 +33,7 @@ internal class GetDeparturesTest : KoinTest {
         Then expect 4th path segment to contain station code
     """
     )
-    internal fun testPathSegment(webServer: MockWebServer) = runBlocking {
+    internal fun testPathSegment(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_NOT_FOUND
         }
@@ -57,7 +58,7 @@ internal class GetDeparturesTest : KoinTest {
         Then expect an exception to be raised with code 'NS_SERVER_ERROR'
     """
     )
-    internal fun testNsServerError(webServer: MockWebServer) = runBlocking {
+    internal fun testNsServerError(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_INTERNAL_ERROR
             jsonBody = "ns_service_failure.json"
@@ -79,7 +80,7 @@ internal class GetDeparturesTest : KoinTest {
         Then expect an exception to be raised with code 'UNKNOWN_STATION'
     """
     )
-    internal fun testUnknownStation(webServer: MockWebServer) = runBlocking {
+    internal fun testUnknownStation(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_INTERNAL_ERROR
             jsonBody = "station_not_found.json"
@@ -101,7 +102,7 @@ internal class GetDeparturesTest : KoinTest {
         Then expect an exception to be raised with code 'NO_DEPARTURES_AVAILABLE'
     """
     )
-    internal fun testNoDepartures(webServer: MockWebServer) = runBlocking {
+    internal fun testNoDepartures(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_INTERNAL_ERROR
             jsonBody = "no_departures.json"
@@ -123,7 +124,7 @@ internal class GetDeparturesTest : KoinTest {
         Then expect an exception to be raised with code 'SERVER_ERROR'
     """
     )
-    internal fun testServerError(webServer: MockWebServer) = runBlocking {
+    internal fun testServerError(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_NOT_FOUND
         }
@@ -144,7 +145,7 @@ internal class GetDeparturesTest : KoinTest {
         Then expect an exception to be raised with code 'UNPARSABLE_API_RESPONSE'
     """
     )
-    internal fun testUnparsableResponse(webServer: MockWebServer) = runBlocking {
+    internal fun testUnparsableResponse(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_OK
             jsonBody = "empty_object.json"
@@ -166,7 +167,7 @@ internal class GetDeparturesTest : KoinTest {
         Then expect a flow with empty list
     """
     )
-    internal fun testEmptyList(webServer: MockWebServer) = runBlocking {
+    internal fun testEmptyList(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_OK
             jsonBody = "empty_list.json"
@@ -186,7 +187,7 @@ internal class GetDeparturesTest : KoinTest {
         Then expect a flow with departure list
     """
     )
-    internal fun testNonEmptyList(webServer: MockWebServer) = runBlocking {
+    internal fun testNonEmptyList(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_OK
             jsonBody = "departures.json"

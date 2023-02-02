@@ -5,8 +5,8 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.*
 import md.vnastasi.trainplanner.async.AsyncResult
 import md.vnastasi.trainplanner.async.Event
 import md.vnastasi.trainplanner.async.TestCoroutineScopeExtension
@@ -31,22 +31,23 @@ internal class LoginViewModelTest {
 
     @Test
     @DisplayName("Given authentication fails Then expect 'AuthenticationFailed' state")
-    internal fun testAuthenticationFailure(scope: TestCoroutineScope) = scope.runBlockingTest {
+    internal fun testAuthenticationFailure() = runTest {
         whenever(mockPerformAuthenticationUseCase.execute(USERNAME, PASSWORD)).doReturnFlowOf(AsyncResult.Failure(ApplicationException(AuthenticationFailureReason.INVALID_CREDENTIALS)))
 
-        viewModel.viewState.test {
-            viewModel.onLogin(USERNAME, PASSWORD)
+            viewModel.viewState.test {
+                viewModel.onLogin(USERNAME, PASSWORD)
 
-            assertThat(awaitItem()).isEqualTo(LoginViewState.Init)
-            assertThat(awaitItem()).isEqualTo(LoginViewState.AuthenticationFailed(AuthenticationFailureReason.INVALID_CREDENTIALS))
+                assertThat(awaitItem()).isEqualTo(LoginViewState.Init)
+                assertThat(awaitItem()).isEqualTo(LoginViewState.AuthenticationFailed(AuthenticationFailureReason.INVALID_CREDENTIALS))
 
-            cancelAndConsumeRemainingEvents()
-        }
+                cancelAndConsumeRemainingEvents()
+            }
+
     }
 
     @Test
     @DisplayName("Given authentication fails Then expect 'Authenticated' state")
-    internal fun testAuthenticationSuccess(scope: TestCoroutineScope) = scope.runBlockingTest {
+    internal fun testAuthenticationSuccess() = runTest {
         whenever(mockPerformAuthenticationUseCase.execute(USERNAME, PASSWORD)).doReturnFlowOf(AsyncResult.Success(Unit))
 
         viewModel.viewState.test {
@@ -61,7 +62,7 @@ internal class LoginViewModelTest {
 
     @Test
     @DisplayName("When navigating to dashboard Then expect 'Dashboard' event")
-    internal fun testNavigation(scope: TestCoroutineScope) = scope.runBlockingTest {
+    internal fun testNavigation() = runTest {
         viewModel.navigationRoute.test {
             viewModel.navigateToDashboard()
 

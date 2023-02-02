@@ -3,6 +3,7 @@ package md.vnastasi.trainplanner.login.repository.impl
 import assertk.assertThat
 import assertk.assertions.*
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import md.vnastasi.trainplanner.BuildConfig
 import md.vnastasi.trainplanner.exception.ApplicationException
 import md.vnastasi.trainplanner.login.repository.impl.LocalAuthenticationRepositoryImpl
@@ -21,7 +22,7 @@ internal class LocalAuthenticationRepositoryImplTest {
         Then expect exception to be raised with reason 'EMPTY_USER_NAME'
     """
     )
-    internal fun testMissingUserName() = runBlockingTest {
+    internal fun testMissingUserName() = runTest {
         assertThat { repository.authenticate("", "password") }
             .isFailure()
             .isInstanceOf(ApplicationException::class)
@@ -36,7 +37,7 @@ internal class LocalAuthenticationRepositoryImplTest {
         Then expect exception to be raised with reason 'EMPTY_PASSWORD'
     """
     )
-    internal fun testMissingUserPassword() = runBlockingTest {
+    internal fun testMissingUserPassword() = runTest {
         assertThat { repository.authenticate("user", "") }
             .isFailure()
             .isInstanceOf(ApplicationException::class)
@@ -51,7 +52,7 @@ internal class LocalAuthenticationRepositoryImplTest {
         Then expect exception to be raised with reason 'INVALID_CREDENTIALS'
     """
     )
-    internal fun testInvalidCredentials() = runBlockingTest {
+    internal fun testInvalidCredentials() = runTest {
         assertThat { repository.authenticate("a", "b") }
             .isFailure()
             .isInstanceOf(ApplicationException::class)
@@ -66,7 +67,7 @@ internal class LocalAuthenticationRepositoryImplTest {
         Then expect no exception to be raised
     """
     )
-    internal fun testValidCredentials() = runBlockingTest {
+    internal fun testValidCredentials() = runTest {
         assertThat { repository.authenticate(BuildConfig.APP_USER, BuildConfig.APP_PASSWORD) }
             .isSuccess()
     }

@@ -6,6 +6,7 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
 import assertk.assertions.prop
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import md.vnastasi.trainplanner.api.client.StationsApiClient
 import md.vnastasi.trainplanner.api.util.WebServerExtension
 import md.vnastasi.trainplanner.api.util.enqueueResponse
@@ -28,7 +29,7 @@ internal class ConnectivityCheckTest : KoinTest {
         Then expect exception to be raised with code 'MISSING_INTERNET_CONNECTION'
     """
     )
-    internal fun testNoConnection(webServer: MockWebServer) = runBlocking {
+    internal fun testNoConnection(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_NOT_FOUND
         }

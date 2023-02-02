@@ -1,14 +1,13 @@
 package md.vnastasi.trainplanner.async
 
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.TestCoroutineScope
-import org.junit.jupiter.api.extension.*
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import org.junit.jupiter.api.extension.AfterEachCallback
+import org.junit.jupiter.api.extension.BeforeEachCallback
+import org.junit.jupiter.api.extension.ExtensionContext
 
-class TestCoroutineScopeExtension : BeforeEachCallback, AfterEachCallback, ParameterResolver {
+class TestCoroutineScopeExtension : BeforeEachCallback, AfterEachCallback {
 
-    private val dispatcher = TestCoroutineDispatcher()
-    private val coroutineScope = TestCoroutineScope(dispatcher + SupervisorJob())
+    private val dispatcher = UnconfinedTestDispatcher()
 
     override fun beforeEach(context: ExtensionContext?) {
         DispatcherRegistry.overrideMain(dispatcher)
@@ -18,14 +17,7 @@ class TestCoroutineScopeExtension : BeforeEachCallback, AfterEachCallback, Param
     }
 
     override fun afterEach(context: ExtensionContext?) {
-        dispatcher.cleanupTestCoroutines()
         DispatcherRegistry.reset()
         Thread.setDefaultUncaughtExceptionHandler(null)
     }
-
-    @Suppress("NewApi")
-    override fun supportsParameter(parameterContext: ParameterContext?, extensionContext: ExtensionContext?): Boolean =
-        parameterContext?.parameter?.type == TestCoroutineScope::class.java
-
-    override fun resolveParameter(parameterContext: ParameterContext?, extensionContext: ExtensionContext?): Any = coroutineScope
 }

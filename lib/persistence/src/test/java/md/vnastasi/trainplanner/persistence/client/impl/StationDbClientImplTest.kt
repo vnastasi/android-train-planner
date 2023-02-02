@@ -9,6 +9,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verifyBlocking
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import md.vnastasi.trainplanner.domain.createStation
 import md.vnastasi.trainplanner.persistence.dao.StationDao
 import md.vnastasi.trainplanner.test.core.doReturnFlowOf
@@ -21,7 +22,7 @@ internal class StationDbClientImplTest {
     private val stationDbClient = StationDbClientImpl(mockStationDao)
 
     @Test
-    internal fun testFindBySearchQuery() = runBlocking {
+    internal fun testFindBySearchQuery() = runTest {
         val query = "haag"
         val station = createStation()
 
@@ -34,7 +35,7 @@ internal class StationDbClientImplTest {
     }
 
     @Test
-    internal fun testFindFavourites() = runBlocking {
+    internal fun testFindFavourites() = runTest {
         val limit = 10
         val station = createStation()
 
@@ -47,7 +48,7 @@ internal class StationDbClientImplTest {
     }
 
     @Test
-    internal fun testFindRecent() = runBlocking {
+    internal fun testFindRecent() = runTest {
         val limit = 10
         val station = createStation()
 
@@ -60,7 +61,7 @@ internal class StationDbClientImplTest {
     }
 
     @Test
-    internal fun testInsert() = runBlocking {
+    internal fun testInsert() = runTest {
         val station = createStation()
 
         assertThat { stationDbClient.insert(station) }.isSuccess()
@@ -69,7 +70,7 @@ internal class StationDbClientImplTest {
     }
 
     @Test
-    internal fun testUpdate() = runBlocking {
+    internal fun testUpdate() = runTest {
         val station = createStation()
 
         assertThat { stationDbClient.update(station) }.isSuccess()
@@ -78,7 +79,7 @@ internal class StationDbClientImplTest {
     }
 
     @Test
-    internal fun testDeleteAll() = runBlocking {
+    internal fun testDeleteAll() = runTest {
         assertThat { stationDbClient.deleteAll() }.isSuccess()
 
         verifyBlocking(mockStationDao) { deleteAll() }

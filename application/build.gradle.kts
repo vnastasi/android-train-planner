@@ -77,6 +77,7 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
+        languageVersion = "1.8"
     }
 
     sourceSets {
@@ -168,5 +169,5 @@ dependencies {
 
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-    kotlinOptions.languageVersion = "1.5"
+    kotlinOptions.languageVersion = "1.8"
 }

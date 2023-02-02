@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import assertk.assertThat
 import assertk.assertions.*
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import md.vnastasi.trainplanner.api.client.DisruptionsApiClient
 import md.vnastasi.trainplanner.api.util.WebServerExtension
 import md.vnastasi.trainplanner.api.util.enqueueResponse
@@ -30,7 +31,7 @@ internal class GetDisruptionsTest : KoinTest {
         When calling '/api/v1/disruption'
         Then expect query parameter 'types' with values 'DISRUPTION' and 'MAINTENANCE'
     """)
-    internal fun testQueryParameter(webServer: MockWebServer): Unit = runBlocking {
+    internal fun testQueryParameter(webServer: MockWebServer): Unit = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpsURLConnection.HTTP_INTERNAL_ERROR
         }
@@ -52,7 +53,7 @@ internal class GetDisruptionsTest : KoinTest {
         Then expect an exception to be raised with code 'NS_SERVER_ERROR'
     """
     )
-    internal fun testNsServerError(webServer: MockWebServer) = runBlocking {
+    internal fun testNsServerError(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_INTERNAL_ERROR
             jsonBody = "ns_service_failure.json"
@@ -73,7 +74,7 @@ internal class GetDisruptionsTest : KoinTest {
         Then expect an exception to be raised with code 'SERVER_ERROR'
     """
     )
-    internal fun testServerError(webServer: MockWebServer) = runBlocking {
+    internal fun testServerError(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_NOT_FOUND
         }
@@ -94,7 +95,7 @@ internal class GetDisruptionsTest : KoinTest {
         Then expect an exception to be raised with code 'UNPARSABLE_API_RESPONSE'
     """
     )
-    internal fun testUnparsableResponse(webServer: MockWebServer) = runBlocking {
+    internal fun testUnparsableResponse(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_OK
             jsonBody = "empty_object.json"
@@ -116,7 +117,7 @@ internal class GetDisruptionsTest : KoinTest {
         Then expect a flow with empty list
     """
     )
-    internal fun testEmptyList(webServer: MockWebServer) = runBlocking {
+    internal fun testEmptyList(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_OK
             jsonBody = "empty_list.json"
@@ -136,7 +137,7 @@ internal class GetDisruptionsTest : KoinTest {
         Then expect a flow with disruption list
     """
     )
-    internal fun testNonEmptyList(webServer: MockWebServer) = runBlocking {
+    internal fun testNonEmptyList(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_OK
             jsonBody = "disruptions.json"

@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import md.vnastasi.trainplanner.api.auth.Authorization
 import md.vnastasi.trainplanner.api.client.StationsApiClient
 import md.vnastasi.trainplanner.api.util.WebServerExtension
@@ -26,7 +27,7 @@ internal class AuthorizationHeaderTest : KoinTest {
         Then expect authorization header to contain correct value
     """
     )
-    internal fun testAuthHeader(webServer: MockWebServer) = runBlocking {
+    internal fun testAuthHeader(webServer: MockWebServer) = runTest {
         webServer.enqueueResponse {
             httpStatus = HttpURLConnection.HTTP_NOT_FOUND
         }

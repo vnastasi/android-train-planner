@@ -9,6 +9,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import md.vnastasi.trainplanner.async.AsyncResult
 import md.vnastasi.trainplanner.async.TestCoroutineScopeExtension
 import md.vnastasi.trainplanner.exception.ApplicationException
@@ -41,7 +42,7 @@ internal class PerformAuthenticationUseCaseImplTest {
         The expect a failure with reason 'INVALID_CREDENTIALS'
     """
     )
-    internal fun testAuthenticationFails(scope: TestCoroutineScope) = scope.runBlockingTest {
+    internal fun testAuthenticationFails() = runTest {
         val exception = ApplicationException(AuthenticationFailureReason.INVALID_CREDENTIALS)
         whenever(mockAuthenticationRepository.authenticate(STUB_USER_NAME, STUB_PASSWORD)).doAnswer { throw exception }
 
@@ -60,7 +61,7 @@ internal class PerformAuthenticationUseCaseImplTest {
         The expect success
     """
     )
-    internal fun testAuthenticationSucceeds(scope: TestCoroutineScope) = scope.runBlockingTest {
+    internal fun testAuthenticationSucceeds() = runTest {
         whenever(mockAuthenticationRepository.authenticate(STUB_USER_NAME, STUB_PASSWORD)).doReturn(Unit)
         whenever(mockEncodeCredentialsUseCase.execute(STUB_USER_NAME, STUB_PASSWORD)).doReturn(STUB_CREDENTIALS)
         whenever(mockCredentialsStorageRepository.store(STUB_CREDENTIALS)).doReturn(Unit)
