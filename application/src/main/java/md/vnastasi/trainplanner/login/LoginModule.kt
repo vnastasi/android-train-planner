@@ -12,11 +12,13 @@ import md.vnastasi.trainplanner.login.repository.CredentialsStorageRepository
 import md.vnastasi.trainplanner.login.repository.CredentialsStorageRepository.Companion.DATA_STORE_NAME
 import md.vnastasi.trainplanner.login.repository.impl.CredentialsStorageRepositoryImpl
 import md.vnastasi.trainplanner.login.repository.impl.LocalAuthenticationRepositoryImpl
+import md.vnastasi.trainplanner.login.ui.LoginFragment
 import md.vnastasi.trainplanner.login.ui.LoginViewModel
 import md.vnastasi.trainplanner.login.usecase.EncodeCredentialsUseCase
 import md.vnastasi.trainplanner.login.usecase.PerformAuthenticationUseCase
 import md.vnastasi.trainplanner.login.usecase.impl.EncodeCredentialsUseCaseImpl
 import md.vnastasi.trainplanner.login.usecase.impl.PerformAuthenticationUseCaseImpl
+import org.koin.androidx.fragment.dsl.fragment
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -50,6 +52,10 @@ class LoginModule(
             LoginViewModel.Provider(
                 performAuthenticationUseCase = get()
             )
+        }
+
+        fragment {
+            LoginFragment(get())
         }
     }
 

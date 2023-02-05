@@ -22,8 +22,7 @@ internal class NavigationModuleTest {
             koin.loadModules(
                 listOf(
                     SplashModule.module,
-                    LoginModule(mockApplication).module,
-                    NavigationModule.module
+                    LoginModule(mockApplication).module
                 )
             )
         }
