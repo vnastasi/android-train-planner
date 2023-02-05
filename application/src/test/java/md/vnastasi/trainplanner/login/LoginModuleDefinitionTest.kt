@@ -9,7 +9,7 @@ import org.koin.core.logger.PrintLogger
 import org.koin.test.check.checkModules
 import org.mockito.Mockito
 
-internal class LoginModuleTest {
+internal class LoginModuleDefinitionTest {
 
     @Test
     internal fun testModule() {
@@ -17,7 +17,7 @@ internal class LoginModuleTest {
 
         val koinApplication = startKoin {
             logger(PrintLogger())
-            koin.loadModules(listOf(LoginModule(mockApplication).module))
+            koin.loadModules(listOf(LoginModuleDefinition(mockApplication).module))
         }
 
         koinApplication.checkModules()

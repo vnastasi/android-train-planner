@@ -16,7 +16,7 @@ inline fun <reified VM : ViewModel> Fragment.providingActivityViewModels(
     factoryProducer = {
         object : AbstractSavedStateViewModelFactory(requireActivity(), requireActivity().intent?.extras + arguments) {
             @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel?> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T = provider.invoke(handle) as T
+            override fun <T : ViewModel> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T = provider.invoke(handle) as T
         }
     }
 )
@@ -30,7 +30,7 @@ inline fun <reified VM : ViewModel> Fragment.providingViewModels(
     factoryProducer = {
         object : AbstractSavedStateViewModelFactory(this, arguments) {
             @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel?> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T = provider.invoke(handle) as T
+            override fun <T : ViewModel> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T = provider.invoke(handle) as T
         }
     }
 )

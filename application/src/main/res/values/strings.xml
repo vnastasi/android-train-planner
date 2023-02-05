@@ -23,4 +23,8 @@
 
     <string name="toast_message_login_success">Login Successful!</string>
 
+    <string name="disruptions_ongoing_notifications">Ongoing notifications</string>
+    <string name="disruptions_disturbances">Disturbances</string>
+    <string name="disruptions_engineering_works">Engineering works</string>
+
 </resources>

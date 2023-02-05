@@ -9,7 +9,7 @@ import org.koin.androidx.fragment.dsl.fragment
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-object SplashModule : ModuleDefinition {
+object SplashModuleDefinition : ModuleDefinition {
 
     override val module: Module = module {
 

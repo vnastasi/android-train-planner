@@ -2,8 +2,8 @@ package md.vnastasi.trainplanner.main
 
 import android.app.Application
 import com.nhaarman.mockitokotlin2.mock
-import md.vnastasi.trainplanner.login.LoginModule
-import md.vnastasi.trainplanner.splash.SplashModule
+import md.vnastasi.trainplanner.login.LoginModuleDefinition
+import md.vnastasi.trainplanner.splash.SplashModuleDefinition
 import org.junit.jupiter.api.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -21,8 +21,8 @@ internal class NavigationModuleTest {
             logger(PrintLogger())
             koin.loadModules(
                 listOf(
-                    SplashModule.module,
-                    LoginModule(mockApplication).module
+                    SplashModuleDefinition.module,
+                    LoginModuleDefinition(mockApplication).module
                 )
             )
         }

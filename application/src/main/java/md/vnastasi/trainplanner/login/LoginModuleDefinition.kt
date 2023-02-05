@@ -22,7 +22,7 @@ import org.koin.androidx.fragment.dsl.fragment
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-class LoginModule(
+class LoginModuleDefinition(
     private val application: Application
 ) : ModuleDefinition {
 

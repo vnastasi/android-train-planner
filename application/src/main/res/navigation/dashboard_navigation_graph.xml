@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/disruptions"
-        android:name="md.vnastasi.trainplanner.dashboard.disruption.DisruptionListFragment"
+        android:name="md.vnastasi.trainplanner.dashboard.disruption.ui.DisruptionListFragment"
         android:label="disruption_list"
         tools:layout="@layout/fragment_disruption_list" />
 

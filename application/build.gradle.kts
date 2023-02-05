@@ -120,8 +120,10 @@ dependencies {
 
     implementation(project(":core:async"))
     implementation(project(":core:di"))
+    implementation(project(":core:domain"))
     implementation(project(":core:exception"))
     implementation(project(":core:ui"))
+    implementation(project(":lib:api"))
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.arch.runtime)
     implementation(libs.androidx.core)
