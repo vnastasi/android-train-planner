@@ -2,7 +2,7 @@ package md.vnastasi.trainplanner.dashboard.disruption
 
 import md.vnastasi.trainplaner.di.ModuleDefinition
 import md.vnastasi.trainplanner.dashboard.disruption.repository.DisruptionsRepository
-import md.vnastasi.trainplanner.dashboard.disruption.repository.impl.DisruptionsRepositoryImpl
+import md.vnastasi.trainplanner.dashboard.disruption.repository.impl.LocalDisruptionsRepository
 import md.vnastasi.trainplanner.dashboard.disruption.ui.DisruptionListFragment
 import md.vnastasi.trainplanner.dashboard.disruption.ui.DisruptionListViewModel
 import md.vnastasi.trainplanner.dashboard.disruption.usecase.CreateDisruptionListItemsUseCase
@@ -16,7 +16,7 @@ object DisruptionModuleDefinition : ModuleDefinition {
     override val module: Module = module {
 
         factory<DisruptionsRepository> {
-            DisruptionsRepositoryImpl(get())
+            LocalDisruptionsRepository()
         }
 
         factory<CreateDisruptionListItemsUseCase> {

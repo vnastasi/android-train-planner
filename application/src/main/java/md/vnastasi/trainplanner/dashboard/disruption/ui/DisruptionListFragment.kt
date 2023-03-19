@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import md.vnastasi.trainplanner.async.AsyncResult
 import md.vnastasi.trainplanner.databinding.FragmentDisruptionListBinding
@@ -22,6 +23,7 @@ class DisruptionListFragment(
     private val viewBinding: FragmentDisruptionListBinding get() = requireNotNull(_viewBinding)
 
     private val viewModel by providingViewModels(viewModelProvider::provideFor)
+    private val adapter = DisruptionListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _viewBinding = FragmentDisruptionListBinding.inflate(inflater, container, false)
@@ -29,6 +31,9 @@ class DisruptionListFragment(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewBinding.root.layoutManager = LinearLayoutManager(requireContext())
+        viewBinding.root.adapter = adapter
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.viewState.collect(::onViewStateChanged)
@@ -45,7 +50,7 @@ class DisruptionListFragment(
         when (viewState) {
             is AsyncResult.Loading -> Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
             is AsyncResult.Failure -> Toast.makeText(requireContext(), "Error: ${viewState.exception.failureReason.message}", Toast.LENGTH_LONG).show()
-            is AsyncResult.Success -> Unit
+            is AsyncResult.Success -> adapter.submitList(viewState.data)
         }
     }
 }

@@ -40,7 +40,7 @@ class CreateDisruptionListItemsUseCaseImpl(
             }
             if (!map[DisturbanceType.MAINTENANCE].isNullOrEmpty()) {
                 add(DisruptionListItem.Heading(R.string.disruptions_engineering_works))
-                map[DisturbanceType.DISRUPTION]!!.map { DisruptionListItem.Maintenance(it) }.also(::addAll)
+                map[DisturbanceType.MAINTENANCE]!!.map { DisruptionListItem.Maintenance(it) }.also(::addAll)
             }
         }
         return AsyncResult.Success(list)
